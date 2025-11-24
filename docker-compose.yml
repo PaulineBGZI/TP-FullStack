@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - user-service
+    networks:
+      - backend
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user_service
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
+    depends_on:
+      - postgres-user
+    networks:
+      - backend
+
+  postgres-user:
+    image: postgres:16
+    container_name: postgres_user
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: userdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-user
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  user-db-data:

@@ -3,3 +3,5 @@
 /front-app/node_modules
 /user-service/node_modules
 /cv-service/node_modules
+
+/api-gateway/dist
