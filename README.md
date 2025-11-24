@@ -7,12 +7,9 @@
 Le site web permet aux utilisateurs de :
 
 - Découvrir nos différentes offres
-- Personnaliser leurs cookies
 - Personnaliser la boîte
-- Bénéficier de réductions via les pépites colorées surprises
 - Passer commande en ligne
 - Suivre leur commande
-- Découvrir l’entreprise et ses valeurs
 
 Le site constitue l’interface centrale entre la boutique et la clientèle.
 
