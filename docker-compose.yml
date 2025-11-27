@@ -39,11 +39,11 @@ services:
     container_name: commands_service
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
+      DATABASE_URL: postgres://postgres:password@postgres-commands:5432/commandsdb
     expose:
       - "5002"
     depends_on:
-      - postgres-user
+      - postgres-commands
     networks:
       - backend
 
@@ -59,7 +59,25 @@ services:
     volumes:
       - user-db-data:/var/lib/postgresql/data
     networks:
-      - backend
+      backend:
+        aliases:
+          - db-user
+
+  postgres-commands:
+    image: postgres:16
+    container_name: postgres_commands
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: commandsdb
+    ports:
+      - "5434:5432"
+    volumes:
+      - commands-db-data:/var/lib/postgresql/data
+    networks:
+      backend:
+        aliases:
+          - db-commands
 
   adminer:
     image: adminer
@@ -69,6 +87,22 @@ services:
       - "8080:8080"
     depends_on:
       - postgres-user
+      - postgres-commands
+    networks:
+      - backend
+
+  front:
+    build:
+      context: ./front-app
+      dockerfile: Dockerfile
+    container_name: front_app
+    restart: unless-stopped
+    environment:
+      - REACT_APP_API_URL=http://api-gateway:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
     networks:
       - backend
 
@@ -77,3 +111,4 @@ networks:
 
 volumes:
   user-db-data:
+  commands-db-data:
