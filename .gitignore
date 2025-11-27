@@ -1,7 +1,11 @@
-## Ignore node_modules
+# Ignore node_modules
 /api-gateway/node_modules
 /front-app/node_modules
 /user-service/node_modules
 /cv-service/node_modules
 
+# Ignore build output directories
 /api-gateway/dist
+/user-service/dist
+/front-app/dist
+/cv-service/dist
