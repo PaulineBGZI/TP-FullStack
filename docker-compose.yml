@@ -22,13 +22,20 @@ services:
       context: ./user-service
       dockerfile: Dockerfile
     container_name: user_service
-    restart: unless-stopped
+    restart: on-failure
     environment:
-      DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
-    expose:
-      - "5001"
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGHOST: postgres-user
+      PGPORT: 5432
+      PGDATABASE: userdb
+      PORT: 5001
+      JWT_SECRET: supersecret
+    ports:
+      - "5001:5001"
     depends_on:
       - postgres-user
+    command: sh -c "node dist/migrate.js && node dist/server.js"
     networks:
       - backend
 
@@ -39,7 +46,15 @@ services:
     container_name: commands_service
     restart: unless-stopped
     environment:
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGHOST: postgres-commands
+      PGPORT: 5432
+      PGDATABASE: commandsdb
+      PORT: 5002
       DATABASE_URL: postgres://postgres:password@postgres-commands:5432/commandsdb
+    ports:
+      - "5002:5002"
     expose:
       - "5002"
     depends_on:
@@ -58,6 +73,11 @@ services:
       - "5433:5432"
     volumes:
       - user-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d userdb -h localhost || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       backend:
         aliases:
@@ -74,6 +94,11 @@ services:
       - "5434:5432"
     volumes:
       - commands-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d commandsdb -h localhost || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       backend:
         aliases:
