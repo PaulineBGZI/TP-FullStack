@@ -9,10 +9,11 @@ const port = process.env.PORT || 5000;
 setupLogging(app);
 setupProxies(app);
 
+app.get("/", (req, res) => {
+  res.send("API Gateway is running");
+});
+
 app.listen(port, () => {
   console.log(`API Gateway running on port ${port}`);
 });
 
-app.get("/", (req, res) => {
-  res.send("API Gateway is running");
-});

@@ -7,6 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: api_gateway
     restart: unless-stopped
+    environment:
+      - USER_HOST=user_service
+      - COMMAND_HOST=commands_service
     ports:
       - "5000:5000"
     depends_on:
@@ -22,6 +25,23 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
+    ports:
+      - "5001:5001"
+    depends_on:
+      - postgres-user
+    networks:
+      - backend
+
+  commands-service:
+    build:
+      context: ./commands-service
+      dockerfile: Dockerfile
+    container_name: commands_service
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
+    ports:
+      - "5002:5002"
     depends_on:
       - postgres-user
     networks:
