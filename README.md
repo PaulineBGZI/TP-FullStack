@@ -1,6 +1,6 @@
 # Contexte du projet – Le Paradis des Cookies
 
-Le Paradis des Cookies est une entreprise artisanale spécialisée dans la fabrication de cookies moelleux, faits maison et entièrement personnalisables. Dans un marché où les grandes chaînes comme **La Mie Câline** ou **Paul** ainsi que les pâtisseries locales proposent des produits souvent standardisés ou peu personnalisables, l’objectif du projet est de se démarquer grâce à **l’originalité**, **la personnalisation** et **la fidélisation client**.
+Le Paradis des Cookies est une entreprise artisanale spécialisée dans la fabrication de cookies moelleux faits maison et personnalisables. Dans un marché où les grandes chaînes comme **La Mie Câline** ou **Paul** ainsi que les pâtisseries locales proposent des produits souvent standardisés ou peu personnalisables, l’objectif du projet est de se démarquer grâce à **l’originalité**, **la personnalisation** et **la fidélisation client**.
 
 Le site web devient alors un élément important pour proposer une expérience moderne et accessible. Il met en avant un concept unique : offrir des cookies personnalisés mais aussi une expérience inédite grâce aux **pépites colorées** cachées dans certains cookies qui permettent d’obtenir des réductions.
 
@@ -13,3 +13,9 @@ Les utilisateurs peuvent :
 - Sélectionner des décorations ou des motifs personnalisés
 - Personnaliser l’emballage avec un message ou un design
 - Commander en ligne avec une livraison rapide grâce aux partenaires locaux
+
+# Choix technologiques
+
+- **Base de données** : Nous avons choisi PostgreSQL pour sa gestion avancée des types (UUID, citext) et sa compatibilité avec les architectures microservices
+- **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js à la place d’un ORM pour garder un contrôle direct sur les requêtes SQL et la structure de la base
+- **Frontend** : Nous avons choisi React avec des bibliothèques modernes comme Chakra UI et TailwindCSS pour créer une interface moderne et facilement personnalisable.
