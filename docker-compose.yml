@@ -8,8 +8,8 @@ services:
     container_name: api_gateway
     restart: unless-stopped
     environment:
-      - USER_HOST=user_service
-      - COMMAND_HOST=commands_service
+      - USER_HOST=user-service
+      - COMMAND_HOST=commands-service
     ports:
       - "5000:5000"
     depends_on:
@@ -25,8 +25,8 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
-    ports:
-      - "5001:5001"
+    expose:
+      - "5001"
     depends_on:
       - postgres-user
     networks:
@@ -40,8 +40,8 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
-    ports:
-      - "5002:5002"
+    expose:
+      - "5002"
     depends_on:
       - postgres-user
     networks:
