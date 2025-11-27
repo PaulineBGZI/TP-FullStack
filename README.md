@@ -14,6 +14,16 @@ Les utilisateurs peuvent :
 - Personnaliser l’emballage avec un message ou un design
 - Commander en ligne avec une livraison rapide grâce aux partenaires locaux
 
+
+# Répartition des services
+
+Le projet est organisé en plusieurs services :
+
+- **API Gateway** : Sert de point d’entrée pour toutes les requêtes externes. Elle redirige les requêtes vers les services appropriés et gère la sécurité, le routage et l’agrégation des réponses.
+- **User Service** : Gère tout ce qui concerne les utilisateurs : création de compte, authentification... Il interagit directement avec la base de données des utilisateurs.
+- **Commands Service** : Prend en charge la gestion des commandes : création, suivi, historique... Il est responsable des commandes des clients.
+- **Front-app** : Application React qui gère l’interface utilisateur. Elle communique avec l’API Gateway pour toutes les opérations : authentification, gestion des commandes, personnalisation des cookies...
+
 # Choix technologiques
 
 - **Base de données** : Nous avons choisi PostgreSQL pour sa gestion avancée des types (UUID, citext) et sa compatibilité avec les architectures microservices
