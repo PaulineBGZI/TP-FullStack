@@ -1,19 +1,15 @@
-# Le Paradis des Cookies
+# Contexte du projet – Le Paradis des Cookies
 
-## 1. Explication du projet final
+Le Paradis des Cookies est une entreprise artisanale spécialisée dans la fabrication de cookies moelleux, faits maison et entièrement personnalisables. Dans un marché où les grandes chaînes comme **La Mie Câline** ou **Paul** ainsi que les pâtisseries locales proposent des produits souvent standardisés ou peu personnalisables, l’objectif du projet est de se démarquer grâce à **l’originalité**, **la personnalisation** et **la fidélisation client**.
 
-**Le Paradis des Cookies** est une boutique en ligne proposant des cookies artisanaux, moelleux, faits maison et personnalisables.
+Le site web devient alors un élément important pour proposer une expérience moderne et accessible. Il met en avant un concept unique : offrir des cookies personnalisés mais aussi une expérience inédite grâce aux **pépites colorées** cachées dans certains cookies qui permettent d’obtenir des réductions.
 
-Le site web permet aux utilisateurs de :
+# Fonctionnalité principale du projet
 
-- Découvrir nos différentes offres
-- Personnaliser la boîte
-- Passer commande en ligne
-- Suivre leur commande
+La fonctionnalité principale du site web est la **personnalisation complète des cookies et de leurs boîtes** directement en ligne.
 
-Le site constitue l’interface centrale entre la boutique et la clientèle.
-
----
-
-## 2. Schéma d’architecture détaillé
-
+Les utilisateurs peuvent :  
+- Choisir un cookie artisanal
+- Sélectionner des décorations ou des motifs personnalisés
+- Personnaliser l’emballage avec un message ou un design
+- Commander en ligne avec une livraison rapide grâce aux partenaires locaux
