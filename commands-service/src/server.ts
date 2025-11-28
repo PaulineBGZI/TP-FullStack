@@ -1,5 +1,5 @@
 import express from "express";
 const app = express();
 const port = process.env.PORT || 5002;
-app.get("/", (req, res) => res.send("Hello from BD response!"));
+app.get("/", (req, res) => res.send("Hello from commands!"));
 app.listen(port, () => console.log(`Server running on port ${port}`));

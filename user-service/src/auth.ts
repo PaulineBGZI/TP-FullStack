@@ -6,7 +6,7 @@ import pool from './db.js';
 
 const router = express.Router();
 
-// Enregistrement
+// Enregistrement (register)
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
