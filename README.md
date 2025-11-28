@@ -1,4 +1,4 @@
-# Contexte du projet – Le Paradis des Cookies
+﻿# Contexte du projet – Le Paradis des Cookies
 
 Le Paradis des Cookies est une entreprise artisanale spécialisée dans la fabrication de cookies moelleux faits maison et personnalisables. Dans un marché où les grandes chaînes comme **La Mie Câline** ou **Paul** ainsi que les pâtisseries locales proposent des produits souvent standardisés ou peu personnalisables, l’objectif du projet est de se démarquer grâce à **l’originalité**, **la personnalisation** et **la fidélisation client**.
 
@@ -14,10 +14,12 @@ Les utilisateurs peuvent :
 - Personnaliser l’emballage avec un message ou un design
 - Commander en ligne avec une livraison rapide grâce aux partenaires locaux
 
+# Schéma d'architecture
+![Architecture de l'application](./images/schema_architecture.drawio.png)
 
 # Répartition des services
 
-Le projet est organisé en plusieurs services :
+Le projet est organisé en plusieurs blocs :
 
 - **API Gateway** : Sert de point d’entrée pour toutes les requêtes externes. Elle redirige les requêtes vers les services appropriés et gère la sécurité, le routage et l’agrégation des réponses.
 - **User Service** : Gère tout ce qui concerne les utilisateurs : création de compte, authentification... Il interagit directement avec la base de données des utilisateurs.
@@ -27,5 +29,5 @@ Le projet est organisé en plusieurs services :
 # Choix technologiques
 
 - **Base de données** : Nous avons choisi PostgreSQL pour sa gestion avancée des types (UUID, citext) et sa compatibilité avec les architectures microservices
-- **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js à la place d’un ORM pour garder un contrôle direct sur les requêtes SQL et la structure de la base
+- **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js afin de garder un contrôle total sur nos requêtes SQL et sur la conception du schéma de base de données, sans les abstractions imposées par un ORM
 - **Frontend** : Nous avons choisi React avec des bibliothèques modernes comme Chakra UI et TailwindCSS pour créer une interface moderne et facilement personnalisable.
