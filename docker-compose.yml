@@ -73,6 +73,7 @@ services:
       - "5433:5432"
     volumes:
       - user-db-data:/var/lib/postgresql/data
+      - ./user-service/create_users_table.sql:/docker-entrypoint-initdb.d/create_users_table.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d userdb -h localhost || exit 1"]
       interval: 10s
@@ -94,6 +95,7 @@ services:
       - "5434:5432"
     volumes:
       - commands-db-data:/var/lib/postgresql/data
+      - ./commands-service/create_commands_table.sql:/docker-entrypoint-initdb.d/create_commands_table.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d commandsdb -h localhost || exit 1"]
       interval: 10s
