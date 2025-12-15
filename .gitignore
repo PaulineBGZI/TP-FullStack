@@ -3,6 +3,7 @@
 /front-app/node_modules
 /user-service/node_modules
 /commands-service/node_modules
+/cv-service/node_modules
 
 # Ignore build output directories
 /api-gateway/dist
