@@ -31,3 +31,24 @@ Le projet est organisé en plusieurs blocs :
 - **Base de données** : Nous avons choisi PostgreSQL pour sa gestion avancée des types (UUID, citext) et sa compatibilité avec les architectures microservices
 - **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js afin de garder un contrôle total sur nos requêtes SQL et sur la conception du schéma de base de données, sans les abstractions imposées par un ORM
 - **Frontend** : Nous avons choisi React avec des bibliothèques modernes comme Chakra UI et TailwindCSS pour créer une interface moderne et facilement personnalisable.
+
+# Guide d'installation
+
+Pour l'installation du projet, il est nécessaire d'avoir Docker d'installer sur votre ordinateur.
+
+Une fois le prochain en local, lancez les commandes suivantes pour initialiser les containeurs.
+
+```docker
+docker compose up --build
+```
+
+# Exportation des données
+
+Pour exporter les données de la base, il est nécessaire d'employer des commandes qui requêtent aux bases d'exporter les données, nous allons cible un fichier SQL qui sera créer à l'exécution de la commande.
+
+```cmd
+docker exec -t postgres_user pg_dump -U postgres userdb > userdb_export.sql
+```
+```powershell
+docker exec -t postgres_commands pg_dump -U postgres commandsdb > commandsdb_export.sql
+```
