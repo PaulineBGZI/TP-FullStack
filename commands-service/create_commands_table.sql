@@ -5,7 +5,6 @@ CREATE EXTENSION IF NOT EXISTS "citext";
 
 CREATE TABLE IF NOT EXISTS commands (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
     total_amount NUMERIC(10,2) NOT NULL CHECK (total_amount >= 0),
     status TEXT NOT NULL DEFAULT 'pending', -- pending / paid / shipped / delivered / cancelled
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),

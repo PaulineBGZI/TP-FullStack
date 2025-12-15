@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     is_verified BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    -- cookie foreign key constraints can be added here if needed
 );
 
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
