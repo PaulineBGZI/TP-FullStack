@@ -100,3 +100,39 @@ jobs:
             sleep 2
           done
           exit 1
+
+  deploy:
+    needs: test_services
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies – API Gateway
+        working-directory: ./api-gateway
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          else
+            echo "Aucun package.json dans api-gateway — step ignorée"
+          fi
+
+
+      - name: Build API Gateway
+        working-directory: ./api-gateway
+        run: |
+          npm install
+          npm run build
+
+      - name: Archive deployed build
+        run: |
+          mkdir deployment
+          cp -r api-gateway/dist deployment/
+          echo "Build déployé dans /deployment (interne à GitHub Actions)"
