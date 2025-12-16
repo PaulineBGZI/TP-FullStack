@@ -1,0 +1,217 @@
+/* ===== Container paradis ===== */
+.home-container {
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at top,
+    #fffaf3 0%,
+    #f9e4c8 45%,
+    #f1cfa1 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* ===== Cookies décoratifs flottants ===== */
+.background-cookies {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-cookie {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
+  border-radius: 50%;
+  opacity: 0.25;
+  animation: float 18s ease-in-out infinite;
+}
+
+.bg-cookie::after {
+  content: "";
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+}
+
+/* Positions & vitesses */
+.c1 { top: 10%; left: 5%; animation-duration: 9s; }
+.c2 { top: 70%; left: 10%; animation-duration: 11s; }
+.c3 { top: 20%; right: 8%; animation-duration: 10s; }
+.c4 { bottom: 15%; right: 12%; animation-duration: 12s; }
+.c5 { top: 50%; left: 45%; animation-duration: 13s; }
+.c6 { bottom: 5%; left: 60%; animation-duration: 9s; }
+
+@keyframes float {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-40px) translateX(20px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* ===== Cookie central ===== */
+.cookie {
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle at 30% 30%, #f2c88f, #d9a15e);
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    inset -12px -12px 0 rgba(0,0,0,0.08),
+    inset 10px 10px 0 rgba(255,255,255,0.25),
+    0 25px 60px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Aura douce */
+.cookie::after {
+  content: "";
+  position: absolute;
+  inset: -50px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 180, 0.4),
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+/* ===== Texte ===== */
+.cookie-title {
+  font-size: 2.6rem;
+  color: #3b1f0e;
+  margin: 0;
+}
+
+.cookie-subtitle {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #4a2a16;
+}
+
+/* ===== Pépites ===== */
+.chips {
+  position: absolute;
+  inset: 0;
+}
+
+.chip {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+  box-shadow:
+    inset -6px -6px 0 rgba(0,0,0,0.25),
+    0 10px 25px rgba(0,0,0,0.35);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+/* ✅ ANCIEN HOVER (sans rotation) */
+.chip:hover {
+  transform: scale(1.15);
+  box-shadow:
+    0 0 20px rgba(255, 210, 150, 0.9),
+    0 0 40px rgba(255, 180, 100, 0.6);
+}
+
+/* Positions */
+.chip-1 { top: -30px; left: 40%; }
+.chip-2 { top: 40%; right: -40px; }
+.chip-3 { bottom: -30px; left: 40%; }
+.chip-4 { top: 40%; left: -30px; }
+
+/* ===== Bouton Se connecter ===== */
+.login-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+
+  background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+  color: #fffaf3;
+  font-weight: bold;
+  font-size: 0.95rem;
+
+  box-shadow:
+    inset -3px -3px 0 rgba(0,0,0,0.25),
+    0 8px 18px rgba(0,0,0,0.35);
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.login-button:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 15px rgba(255, 210, 150, 0.8),
+    0 0 30px rgba(255, 180, 100, 0.5);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .cookie {
+    width: 340px;
+    height: 340px;
+  }
+
+  .cookie-title {
+    font-size: 2rem;
+  }
+
+  .chip {
+    width: 75px;
+    height: 75px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cookie {
+    width: 280px;
+    height: 280px;
+  }
+
+  .cookie-title {
+    font-size: 1.6rem;
+  }
+
+  .cookie-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .chip {
+    width: 65px;
+    height: 65px;
+    font-size: 0.7rem;
+  }
+
+  .login-button {
+   padding: 8px 16px;
+   font-size: 0.85rem;
+   top: 15px;
+   right: 15px;
+  }
+}
