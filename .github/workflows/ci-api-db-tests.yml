@@ -30,7 +30,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: commandsdb
         ports:
-          - 5434:5432
+          - 5435:5432 
         options: >-
           --health-cmd="pg_isready -U postgres -d commandsdb"
           --health-interval=10s
@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies (root)
+      - name: Install dependencies (ROOT)
         run: npm install || true
 
       - name: Build API Gateway
@@ -74,7 +74,7 @@ jobs:
 
       - name: Prepare migrations Commands DB
         run: |
-          psql postgresql://postgres:password@localhost:5434/commandsdb \
+          psql postgresql://postgres:password@localhost:5435/commandsdb \
             -f commands-service/migrations/create_commands_table.sql
 
       - name: Test User DB Connection
@@ -87,7 +87,7 @@ jobs:
       - name: Test Commands DB Connection
         working-directory: ./commands-service
         env:
-          DATABASE_URL: postgres://postgres:password@localhost:5434/commandsdb
+          DATABASE_URL: postgres://postgres:password@localhost:5435/commandsdb
         run: node dist/healthcheck.js
 
 
@@ -95,8 +95,7 @@ jobs:
         run: |
           docker compose up -d --build api-gateway user-service commands-service front
 
-
-      - name: Wait for API Gateway
+      - name: Wait for API Gateway to be ready
         run: |
           for i in {1..15}; do
             curl http://localhost:5000/health && exit 0
