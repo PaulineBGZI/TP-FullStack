@@ -14,6 +14,60 @@ Les utilisateurs peuvent :
 - Personnaliser l’emballage avec un message ou un design
 - Commander en ligne avec une livraison rapide grâce aux partenaires locaux
 
+# Installation et lancement du projet
+
+### Prérequis
+
+Avant de lancer le projet, assurez-vous d’avoir les outils suivants installés sur votre machine :
+
+- **Docker**
+- **Docker Compose**
+- **Node.js**
+- **npm**
+- Un navigateur web récent (Chrome, Firefox, etc.)
+
+---
+
+### Récupération du projet
+
+Clonez le dépôt Git sur votre machine locale :
+
+```bash
+git clone https://github.com/PaulineBGZI/TP-FullStack.git
+cd TP-FullStack
+```
+
+### Installation des dépendances
+Avant de lancer les conteneurs Docker, il est nécessaire d’installer les dépendances Node.js pour chaque service
+
+Exécutez la commande suivante dans chacun des dossiers concernés (API Gateway, services backend et frontend)
+```bash
+npm install
+```
+
+### Lancement du projet
+Une fois les dépendances installées, lancez l’ensemble des services du projet à l’aide de Docker Compose
+```bash
+docker compose up --build
+```
+
+Cette commande permet de :
+- Construire les images Docker
+- Démarrer l’API Gateway, les services backend et le frontend React
+- Initialiser les bases de données PostgreSQL
+
+### Accès à l'application
+Lorsque tous les conteneurs sont opérationnels, l’application est accessible depuis votre navigateur à l’adresse suivante
+```bash
+http://localhost:3000
+```
+
+### Arrêt du projet
+Pour arrêter l’ensemble des services et des conteneurs
+```bash
+docker compose down
+```
+
 # Schéma d'architecture
 ![Architecture de l'application](./images/schema_architecture.drawio.png)
 
