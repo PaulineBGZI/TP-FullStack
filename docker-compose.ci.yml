@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    depends_on:
+      - user-service
+      - commands-service
+
+  user-service:
+    build:
+      context: ./user-service
+    environment:
+      PGHOST: postgres-user
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGDATABASE: userdb
+    depends_on:
+      - postgres-user
+
+  commands-service:
+    build:
+      context: ./commands-service
+    environment:
+      PGHOST: postgres-commands
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGDATABASE: commandsdb
+    depends_on:
+      - postgres-commands
+
+  postgres-user:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: userdb
+
+  postgres-commands:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: commandsdb

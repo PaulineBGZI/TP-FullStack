@@ -93,7 +93,7 @@ jobs:
 
       - name: Start API & Services only (Without DB)
         run: |
-          docker compose up -d --build api-gateway user-service commands-service front
+          docker compose -f docker-compose.ci.yml up -d --build
 
       - name: Wait for API Gateway to be ready
         run: |
