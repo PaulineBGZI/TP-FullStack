@@ -79,11 +79,17 @@ jobs:
 
       - name: Test User DB Connection
         working-directory: ./user-service
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5433/userdb
         run: node dist/healthcheck.js
+
 
       - name: Test Commands DB Connection
         working-directory: ./commands-service
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5434/commandsdb
         run: node dist/healthcheck.js
+
 
       - name: Start Docker Compose
         run: docker compose up -d --build
