@@ -28,9 +28,11 @@ Le projet est organisé en plusieurs blocs :
 
 # Choix technologiques
 
-- **Base de données** : Nous avons choisi PostgreSQL pour sa gestion avancée des types (UUID, citext) et sa compatibilité avec les architectures microservices
-- **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js afin de garder un contrôle total sur nos requêtes SQL et sur la conception du schéma de base de données, sans les abstractions imposées par un ORM
-- **Frontend** : Nous avons choisi React avec des bibliothèques modernes comme Chakra UI et TailwindCSS pour créer une interface moderne et facilement personnalisable.
+- **Base de données** : Nous avons choisi PostgreSQL afin de gérer de manière fiable les données liées aux commandes personnalisées, aux clients et aux éléments de fidélisation (pépites colorées, réductions, historiques d’achats). La gestion des identifiants via des UUID permet l’unicité des commandes et des utilisateurs. De plus, l’utilisation de types comme citext permet d’éviter les doublons comme les adresses e-mail ce qui améliore la cohérence des données clients.
+
+- **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js afin de garder un contrôle total sur nos requêtes SQL pour gérer des cas métiers spécifiques comme la personnalisation des cookies, l’association des décorations ou encore l’attribution des réductions via les pépites colorées. Cela offre de meilleures performances et une plus grande flexibilité qu’un ORM en particulier pour faire évoluer le schéma de la base de données en fonction des nouvelles fonctionnalités du site.
+
+- **Frontend** : Nous avons choisi React pour créer une interface interactive et fluide afin d'accompagner l’utilisateur tout au long du processus de personnalisation des cookies et des boîtes. L’utilisation de Chakra UI et TailwindCSS permet de concevoir une interface moderne, cohérente et responsive tout en facilitant le visuel des produits et des options de personnalisation.
 
 # Guide d'installation
 
