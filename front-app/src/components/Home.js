@@ -1,10 +1,18 @@
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
       {/* Bouton connexion */}
-      <button className="login-button">Se connecter</button>
+      <button
+        className="login-button"
+        onClick={() => navigate("/login")}
+      >
+        Se connecter
+      </button>
 
       {/* Décor cookies flottants */}
       <div className="background-cookies">

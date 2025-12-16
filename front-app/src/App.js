@@ -1,7 +1,10 @@
 import './App.css';
 import Notification from "./Notification";
 import Home from "./components/Home";
+import Login from "./components/Login";
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./components/Register";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -17,10 +20,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <BrowserRouter>
       <Notification message={message} />
-      <Home />
-    </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
