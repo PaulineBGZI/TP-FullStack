@@ -9,7 +9,7 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "migrate": "node dist/migrate.js",
-    "start": "node --loader ts-node/esm src/server.ts",
+    "start": "node dist/server.js",
     "start:prod": "node dist/server.js"
   },
   "keywords": [],
