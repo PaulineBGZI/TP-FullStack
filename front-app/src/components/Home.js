@@ -1,0 +1,41 @@
+import "./Home.css";
+
+function Home() {
+  return (
+    <div className="home-container">
+      {/* Bouton connexion */}
+      <button className="login-button">Se connecter</button>
+
+      {/* Décor cookies flottants */}
+      <div className="background-cookies">
+        <span className="bg-cookie c1"></span>
+        <span className="bg-cookie c2"></span>
+        <span className="bg-cookie c3"></span>
+        <span className="bg-cookie c4"></span>
+        <span className="bg-cookie c5"></span>
+        <span className="bg-cookie c6"></span>
+      </div>
+
+      {/* Cookie principal */}
+      <div className="cookie">
+        <h1 className="cookie-title">
+          Le Paradis<br />des Cookies
+        </h1>
+
+        <p className="cookie-subtitle">
+          Des cookies moelleux, personnalisés<br />
+          et des surprises à chaque bouchée 🍪
+        </p>
+
+        <div className="chips">
+          <div className="chip chip-1">Nos<br />cookies</div>
+          <div className="chip chip-2">Personnaliser</div>
+          <div className="chip chip-3">Le<br />concept</div>
+          <div className="chip chip-4">Commander</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
