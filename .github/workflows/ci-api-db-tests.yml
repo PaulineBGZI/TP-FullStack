@@ -16,7 +16,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: userdb
         options: >-
-          --health-cmd="pg_isready -U postgres -d userdb"
+          --health-cmd="pg_isready -U postgres -d userdb -h localhost"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -28,7 +28,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: commandsdb
         options: >-
-          --health-cmd="pg_isready -U postgres -d commandsdb"
+          --health-cmd="pg_isready -U postgres -d commandsdb -h localhost"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -89,8 +89,8 @@ jobs:
       - name: Start API Gateway
         working-directory: ./api-gateway
         env:
-          USER_HOST: user-service
-          COMMAND_HOST: commands-service
+          USER_HOST: postgres-user
+          COMMAND_HOST: postgres-commands
         run: node dist/server.js &
 
       - name: Wait for API Gateway
