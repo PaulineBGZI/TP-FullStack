@@ -1,0 +1,97 @@
+name: CI - Test API & Databases
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test_services:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres-user:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: userdb
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d userdb"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      postgres-commands:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: commandsdb
+        ports:
+          - 5434:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d commandsdb"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies (root)
+        run: npm install || true
+
+      - name: Build API Gateway
+        working-directory: ./api-gateway
+        run: |
+          npm install
+          npm run build
+
+      - name: Build User Service
+        working-directory: ./user-service
+        run: |
+          npm install
+          npm run build
+
+      - name: Build Commands Service
+        working-directory: ./commands-service
+        run: |
+          npm install
+          npm run build
+
+      - name: Prepare migrations User DB
+        run: |
+          psql postgresql://postgres:password@localhost:5433/userdb \
+            -f user-service/migrations/create_users_table.sql
+
+      - name: Prepare migrations Commands DB
+        run: |
+          psql postgresql://postgres:password@localhost:5434/commandsdb \
+            -f commands-service/migrations/create_commands_table.sql
+
+      - name: Test User DB Connection
+        working-directory: ./user-service
+        run: node dist/healthcheck.js
+
+      - name: Test Commands DB Connection
+        working-directory: ./commands-service
+        run: node dist/healthcheck.js
+
+      - name: Start Docker Compose
+        run: docker compose up -d --build
+
+      - name: Wait for API Gateway
+        run: |
+          for i in {1..15}; do
+            curl http://localhost:5000/health && exit 0
+            sleep 3
+          done
+          exit 1
