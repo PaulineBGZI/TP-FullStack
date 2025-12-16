@@ -15,8 +15,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: userdb
-        ports:
-          - 5433:5432
         options: >-
           --health-cmd="pg_isready -U postgres -d userdb"
           --health-interval=10s
@@ -29,8 +27,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: commandsdb
-        ports:
-          - 5435:5432 
         options: >-
           --health-cmd="pg_isready -U postgres -d commandsdb"
           --health-interval=10s
@@ -49,56 +45,58 @@ jobs:
       - name: Install dependencies (ROOT)
         run: npm install || true
 
-      - name: Build API Gateway
+
+      - name: Install & Build User Service
+        working-directory: ./user-service
+        run: |
+          npm install
+          npm run build
+
+      - name: Migrate User DB
+        run: |
+          psql postgresql://postgres:password@postgres-user:5432/userdb \
+            -f user-service/migrations/create_users_table.sql
+
+      - name: Test User DB Connection
+        working-directory: ./user-service
+        env:
+          DATABASE_URL: postgres://postgres:password@postgres-user:5432/userdb
+        run: node dist/healthcheck.js
+
+      - name: Install & Build Commands Service
+        working-directory: ./commands-service
+        run: |
+          npm install
+          npm run build
+
+      - name: Migrate Commands DB
+        run: |
+          psql postgresql://postgres:password@postgres-commands:5432/commandsdb \
+            -f commands-service/migrations/create_commands_table.sql
+
+      - name: Test Commands DB Connection
+        working-directory: ./commands-service
+        env:
+          DATABASE_URL: postgres://postgres:password@postgres-commands:5432/commandsdb
+        run: node dist/healthcheck.js
+
+      - name: Install & Build API Gateway
         working-directory: ./api-gateway
         run: |
           npm install
           npm run build
 
-      - name: Build User Service
-        working-directory: ./user-service
-        run: |
-          npm install
-          npm run build
-
-      - name: Build Commands Service
-        working-directory: ./commands-service
-        run: |
-          npm install
-          npm run build
-
-      - name: Prepare migrations User DB
-        run: |
-          psql postgresql://postgres:password@localhost:5433/userdb \
-            -f user-service/migrations/create_users_table.sql
-
-      - name: Prepare migrations Commands DB
-        run: |
-          psql postgresql://postgres:password@localhost:5435/commandsdb \
-            -f commands-service/migrations/create_commands_table.sql
-
-      - name: Test User DB Connection
-        working-directory: ./user-service
+      - name: Start API Gateway
+        working-directory: ./api-gateway
         env:
-          DATABASE_URL: postgres://postgres:password@localhost:5433/userdb
-        run: node dist/healthcheck.js
+          USER_HOST: user-service
+          COMMAND_HOST: commands-service
+        run: node dist/server.js &
 
-
-      - name: Test Commands DB Connection
-        working-directory: ./commands-service
-        env:
-          DATABASE_URL: postgres://postgres:password@localhost:5435/commandsdb
-        run: node dist/healthcheck.js
-
-
-      - name: Start API & Services only (Without DB)
+      - name: Wait for API Gateway
         run: |
-          docker compose -f docker-compose.ci.yml up -d --build
-
-      - name: Wait for API Gateway to be ready
-        run: |
-          for i in {1..15}; do
+          for i in {1..20}; do
             curl http://localhost:5000/health && exit 0
-            sleep 3
+            sleep 2
           done
           exit 1
