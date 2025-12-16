@@ -2,11 +2,13 @@
   "name": "commands-service",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "dev": "nodemon src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node --loader ts-node/esm src/server.ts"
+    "start": "node --loader ts-node/esm src/server.ts",
+    "migrate": "node dist/migrate.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +16,8 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "dotenv": "^17.2.3"    
   },
   "devDependencies": {
     "@types/express": "^5.0.5",

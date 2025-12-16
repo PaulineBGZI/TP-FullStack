@@ -22,11 +22,11 @@ const __dirname = path.dirname(__filename);
 (async function run() {
   try {
     await waitForDb();
-    const sqlPath = path.resolve(__dirname, '..', 'migrations', 'create_users_table.sql');
+    const sqlPath = path.resolve(__dirname, '..', 'migrations', 'create_commands_table.sql');
     const sql = fs.readFileSync(sqlPath, 'utf8');
     console.log('Running migration...');
     await pool.query(sql);
-    console.log('User migration finished');
+    console.log('Commands migration finished');
     await pool.end();
   } catch (err) {
     console.error(err);
