@@ -1,5 +1,5 @@
-const USER_HOST = process.env.USER_HOST || 'localhost';
-const COMMAND_HOST = process.env.COMMAND_HOST || 'localhost';
+const USER_HOST = process.env.USER_HOST || "user-service";
+const COMMAND_HOST = process.env.COMMAND_HOST || "commands-service";
 
 export const ROUTES = [
   {
@@ -7,18 +7,18 @@ export const ROUTES = [
     auth: true,
     rateLimit: { windowMs: 15 * 60 * 1000, max: 100 },
     proxy: {
-      target: `http://${USER_HOST}:5001`, // user-service
+      target: `http://${USER_HOST}:5001`,
       changeOrigin: true,
       pathRewrite: { "^/users": "" },
     },
   },
   {
-    url: "/commands",
-    auth: true,
-    proxy: {
-      target: `http://${COMMAND_HOST}:5002`, // commands-service
-      changeOrigin: true,
-      pathRewrite: { "^/commands": "" },
-    },
+  url: "/commands",
+  auth: true,
+  proxy: {
+    target: `http://${COMMAND_HOST}:5002`,
+    changeOrigin: true,
+    pathRewrite: { "^/commands": "" },
   },
+},
 ];
