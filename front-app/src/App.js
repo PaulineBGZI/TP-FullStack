@@ -5,6 +5,8 @@ import Login from "./components/Login/Login";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./components/Register/Register";
+import CookiesPage from "./components/Cookies/CookiesPage";
+import AdminCookies from "./components/Admin/AdminCookies";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -20,15 +22,17 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Notification message={message} />
+      <BrowserRouter>
+        <Notification message={message} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cookies" element={<CookiesPage />} />
+          <Route path="/admin/cookies" element={<AdminCookies />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 

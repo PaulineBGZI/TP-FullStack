@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS pepites (
     id BIGSERIAL PRIMARY KEY,
     pepite_name TEXT NOT NULL,
     quantity INT NOT NULL CHECK (quantity > 0),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT ('second', now())
+    created_at TIMESTAMPTZ NOT NULL DEFAULT date_trunc('second', now())
 );
 
 CREATE TABLE IF NOT EXISTS panier (
