@@ -36,10 +36,11 @@ function Home() {
         </p>
 
         <div className="chips">
-          <div className="chip chip-1">Nos<br />cookies</div>
           <div className="chip chip-2">Personnaliser</div>
           <div className="chip chip-3">Le<br />concept</div>
-          <div className="chip chip-4">Commander</div>
+          <div className="chip chip-1" onClick={() => navigate("/cookies")}>Nos<br />cookies</div>
+          <div className="chip chip-4" onClick={() => navigate("/cookies")}>Commander</div>
+
         </div>
       </div>
     </div>
