@@ -1,0 +1,199 @@
+.panier-container {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #fffaf3, #f9e4c8, #f1cfa1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 24px;
+    overflow: hidden;
+}
+
+/* Bouton retour */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+
+    background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+    color: #fffaf3;
+
+    font-weight: bold;
+    font-size: 0.95rem;
+
+    box-shadow:
+            inset -3px -3px 0 rgba(0, 0, 0, 0.25),
+            0 8px 18px rgba(0, 0, 0, 0.35);
+
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255, 210, 150, 0.8),
+    0 0 30px rgba(255, 180, 100, 0.5);
+}
+
+/* Cookies décoratifs */
+.background-cookies {
+    position: absolute;
+    inset: 0;
+}
+
+.bg-cookie {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
+    opacity: 0.25;
+}
+
+.bg-cookie.c1 { top: 10%; left: 5%; }
+.bg-cookie.c2 { top: 20%; right: 8%; }
+.bg-cookie.c3 { bottom: 12%; left: 10%; }
+.bg-cookie.c4 { bottom: 8%; right: 6%; }
+
+/* Carte panier */
+.panier-card {
+    position: relative;
+    z-index: 2;
+    width: min(900px, 100%);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 26px;
+    padding: 24px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+.panier-title {
+    margin: 0 0 20px;
+    color: #6d3b12;
+    font-size: 32px;
+}
+
+/* Panier vide */
+.empty {
+    text-align: center;
+    padding: 40px 0;
+}
+
+/* Items */
+.panier-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panier-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(180, 120, 60, 0.2);
+}
+
+.item-info h3 {
+    margin: 0;
+    color: #6d3b12;
+}
+
+.item-info p {
+    margin: 4px 0 0;
+    opacity: 0.8;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Quantité */
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #d88a49;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.price {
+    font-weight: 800;
+    color: #6d3b12;
+}
+
+/* Supprimer */
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: #b91c1c;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* Récap */
+.summary {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(180, 120, 60, 0.4);
+}
+
+.summary .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.summary .total {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* Boutons */
+.primary-btn,
+.secondary-btn {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+}
+
+.primary-btn {
+    background: linear-gradient(180deg, #d88a49, #b86a2d);
+    color: #fff;
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(180, 120, 60, 0.3);
+    color: #6d3b12;
+}
+
+.full {
+    width: 100%;
+}
