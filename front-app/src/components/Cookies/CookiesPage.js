@@ -26,7 +26,7 @@ export default function CookiesPage() {
                 setCookies(Array.isArray(c) ? c : []);
                 setBoxes(Array.isArray(b) ? b : []);
 
-                // Auto-select (optionnel)
+                // Auto-select
                 if (Array.isArray(c) && c.length) setSelectedCookieId(c[0].id);
                 if (Array.isArray(b) && b.length) setSelectedBoxId(b[0].id);
             } catch (e) {
@@ -57,7 +57,7 @@ export default function CookiesPage() {
                 message,
             });
 
-            setInfo("Commande créée ✅");
+            setInfo("Commande créée avec succès ! ");
             setMessage("");
             setQuantity(1);
         } catch (e) {
@@ -139,7 +139,7 @@ export default function CookiesPage() {
                             Message sur la boîte (optionnel)
                             <input
                                 type="text"
-                                placeholder="Ex : Pour Pauline 💚"
+                                placeholder="Ex : Joyeux anniversaire !"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                             />

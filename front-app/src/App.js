@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./components/Register/Register";
 import CookiesPage from "./components/Cookies/CookiesPage";
 import AdminCookies from "./components/Admin/AdminCookies";
+import Concept from "./components/Concept/Concept";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -31,6 +32,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/cookies" element={<CookiesPage />} />
           <Route path="/admin/cookies" element={<AdminCookies />} />
+          <Route path="/concept" element={<Concept />} />
         </Routes>
       </BrowserRouter>
   );
