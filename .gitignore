@@ -3,10 +3,15 @@
 /front-app/node_modules
 /user-service/node_modules
 /commands-service/node_modules
-/cv-service/node_modules
 
 # Ignore build output directories
 /api-gateway/dist
 /user-service/dist
 /front-app/dist
 /commands-service/dist
+
+# Ignore build output directories
+/api-gateway/package-lock.json
+/user-service/package-lock.json
+/front-app/package-lock.json
+/commands-service/package-lock.json
