@@ -1,0 +1,146 @@
+.concept-main {
+    position: relative;
+    z-index: 2;
+    padding: 22px 18px 40px;
+}
+
+.concept-card {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Hero */
+.concept-hero {
+    border-radius: 22px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(140, 110, 80, 0.12);
+    display: grid;
+    gap: 12px;
+}
+
+.concept-badge {
+    display: inline-block;
+    width: fit-content;
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: rgba(60, 43, 28, 0.78);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(140, 110, 80, 0.12);
+    padding: 8px 12px;
+    border-radius: 999px;
+}
+
+.concept-title {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 1000;
+    letter-spacing: -0.6px;
+    color: #3c2b1c;
+}
+
+.concept-subtitle {
+    margin: 0;
+    color: rgba(60, 43, 28, 0.78);
+    line-height: 1.6;
+    font-weight: 650;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Grid */
+.concept-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.concept-block {
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(140, 110, 80, 0.12);
+    padding: 18px;
+    display: grid;
+    gap: 10px;
+}
+
+.concept-block h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 1000;
+    color: #3c2b1c;
+}
+
+.concept-block p {
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 650;
+    color: rgba(60, 43, 28, 0.78);
+}
+
+.concept-list {
+    margin: 0;
+    padding-left: 18px;
+    line-height: 1.8;
+    color: rgba(60, 43, 28, 0.78);
+    font-weight: 650;
+}
+
+/* Nuggets */
+.nuggets { display: flex; gap: 10px; }
+
+.nugget {
+    width: 18px;
+    height: 18px;
+    border-radius: 8px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.10);
+}
+.nugget.n1 { background: #ff4d6d; }
+.nugget.n2 { background: #22c55e; }
+.nugget.n3 { background: #3b82f6; }
+.nugget.n4 { background: #f59e0b; }
+
+/* Badges */
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.badge {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(140, 110, 80, 0.12);
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: rgba(60, 43, 28, 0.82);
+}
+
+.concept-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Footer inside card */
+.concept-footer {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(140, 110, 80, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 850;
+    color: rgba(60, 43, 28, 0.82);
+}
+
+.concept-footer p { margin: 0; }
+
+@media (max-width: 900px) {
+    .concept-grid { grid-template-columns: 1fr; }
+    .concept-footer { flex-direction: column; align-items: flex-start; }
+}

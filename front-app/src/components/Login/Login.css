@@ -1,0 +1,112 @@
+/* ===== Page layout ===== */
+.login-page {
+  position: relative;
+}
+
+/* centre le contenu sous le header */
+.login-main {
+  position: relative;
+  z-index: 2;
+  padding: 28px 18px 44px;
+
+  flex: 1; /* important si .page est en flex-column */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card */
+.login-card {
+  width: min(440px, 100%);
+  padding: 28px;
+  text-align: center;
+}
+
+/* Header contenu card */
+.login-head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.login-emoji {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.login-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 1000;
+  letter-spacing: -0.6px;
+  color: #3c2b1c;
+}
+
+.login-subtitle {
+  margin: 0;
+  color: rgba(60, 43, 28, 0.72);
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+/* Form */
+.login-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: rgba(60, 43, 28, 0.85);
+  text-align: left;
+}
+
+.login-form input {
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(140, 110, 80, 0.16);
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: #3c2b1c;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: rgba(255, 209, 227, 0.95);
+  box-shadow: 0 0 0 3px rgba(255, 209, 227, 0.35);
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: rgba(60, 43, 28, 0.7);
+}
+
+.login-footer button {
+  background: none;
+  border: none;
+  font-weight: 950;
+  color: #3c2b1c;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Helpers */
+.full {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .login-card {
+    padding: 22px;
+  }
+}

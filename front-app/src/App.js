@@ -1,11 +1,13 @@
 import './App.css';
 import Notification from "./Notification";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Cookies from "./components/Cookies";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./components/Register";
+import Register from "./components/Register/Register";
+import Cookies from "./components/Cookies/Cookies";
+import Concept from "./components/Concept/Concept";
+import Panier from "./components/Panier/Panier";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -21,16 +23,18 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Notification message={message} />
+      <BrowserRouter>
+        <Notification message={message} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cookies" element={<Cookies />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cookies" element={<Cookies />} />
+          <Route path="/concept" element={<Concept />} />
+          <Route path="/panier" element={<Panier />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 

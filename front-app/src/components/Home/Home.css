@@ -1,0 +1,120 @@
+.home {
+  position: relative;
+  z-index: 2;
+  padding: 26px 18px 40px;
+}
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(12px);
+  border-radius: 26px;
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
+  padding: 22px;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: rgba(60, 43, 28, 0.78);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.hero-title {
+  margin: 14px 0 10px;
+  font-size: clamp(2.0rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  color: #3c2b1c;
+  font-weight: 1000;
+  letter-spacing: -0.6px;
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: rgba(60, 43, 28, 0.78);
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+.hero-cta {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  border-radius: 18px;
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+}
+
+
+.stat-kpi { font-size: 1.2rem; }
+
+.stat-label {
+  font-weight: 900;
+  color: rgba(60, 43, 28, 0.78);
+  font-size: 0.95rem;
+}
+
+.hero-side { display: grid; gap: 14px; }
+
+.side-card {
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+  padding: 18px;
+}
+
+.side-card--light { background: rgba(255, 255, 255, 0.62); }
+
+.side-title {
+  margin: 0 0 8px;
+  color: #3c2b1c;
+  font-weight: 1000;
+  letter-spacing: -0.2px;
+}
+
+.side-text {
+  margin: 0 0 12px;
+  color: rgba(60, 43, 28, 0.78);
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .hero-stats { grid-template-columns: 1fr; }
+}

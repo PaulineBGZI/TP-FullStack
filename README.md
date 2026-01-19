@@ -14,6 +14,71 @@ Les utilisateurs peuvent :
 - Personnaliser l’emballage avec un message ou un design
 - Commander en ligne avec une livraison rapide grâce aux partenaires locaux
 
+# Guide d'installation et de lancement du projet
+
+### Prérequis
+
+Avant de lancer le projet, assurez-vous d’avoir les outils suivants installés sur votre machine :
+
+- **Docker**
+- **Docker Compose**
+- **Node.js**
+- **npm**
+- Un navigateur web récent (Chrome, Firefox, etc.)
+
+---
+
+### Récupération du projet
+
+Clonez le dépôt Git sur votre machine locale :
+
+```bash
+git clone https://github.com/PaulineBGZI/TP-FullStack.git
+cd TP-FullStack
+```
+
+### Installation des dépendances
+Avant de lancer les conteneurs Docker, il est nécessaire d’installer les dépendances Node.js pour chaque service
+
+Exécutez la commande suivante dans chacun des dossiers concernés (API Gateway, services backend et frontend)
+```bash
+npm install
+```
+
+### Lancement du projet
+Une fois les dépendances installées, lancez l’ensemble des services du projet à l’aide de Docker Compose
+```bash
+docker compose up --build
+```
+
+Cette commande permet de :
+- Construire les images Docker
+- Démarrer l’API Gateway, les services backend et le frontend React
+- Initialiser les bases de données PostgreSQL
+
+### Accès à l'application
+Lorsque tous les conteneurs sont opérationnels, l’application est accessible depuis votre navigateur à l’adresse suivante
+```bash
+http://localhost:3000
+```
+
+### Exportation des données
+
+Il est possible d’exporter les données des bases PostgreSQL sous forme de fichiers SQL.
+
+```cmd
+docker exec -t postgres_user pg_dump -U postgres userdb > userdb_export.sql
+```
+```powershell
+docker exec -t postgres_commands pg_dump -U postgres commandsdb > commandsdb_export.sql
+```
+
+### Arrêt du projet
+Pour arrêter l’ensemble des services et des conteneurs
+```bash
+docker compose down
+```
+
 # Schéma d'architecture
 ![Architecture de l'application](./images/schema_architecture.drawio.png)
 
@@ -33,24 +98,3 @@ Le projet est organisé en plusieurs blocs :
 - **Accès aux données** : Nous avons utilisé le module natif `PG` de Node.js afin de garder un contrôle total sur nos requêtes SQL pour gérer des cas métiers spécifiques comme la personnalisation des cookies, l’association des décorations ou encore l’attribution des réductions via les pépites colorées. Cela offre de meilleures performances et une plus grande flexibilité qu’un ORM en particulier pour faire évoluer le schéma de la base de données en fonction des nouvelles fonctionnalités du site.
 
 - **Frontend** : Nous avons choisi React pour créer une interface interactive et fluide afin d'accompagner l’utilisateur tout au long du processus de personnalisation des cookies et des boîtes. L’utilisation de Chakra UI et TailwindCSS permet de concevoir une interface moderne, cohérente et responsive tout en facilitant le visuel des produits et des options de personnalisation.
-
-# Guide d'installation
-
-Pour l'installation du projet, il est nécessaire d'avoir Docker d'installer sur votre ordinateur.
-
-Une fois le prochain en local, lancez les commandes suivantes pour initialiser les containeurs.
-
-```docker
-docker compose up --build
-```
-
-# Exportation des données
-
-Pour exporter les données de la base, il est nécessaire d'employer des commandes qui requêtent aux bases d'exporter les données, nous allons cible un fichier SQL qui sera créer à l'exécution de la commande.
-
-```cmd
-docker exec -t postgres_user pg_dump -U postgres userdb > userdb_export.sql
-```
-```powershell
-docker exec -t postgres_commands pg_dump -U postgres commandsdb > commandsdb_export.sql
-```
