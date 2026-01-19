@@ -1,0 +1,253 @@
+/* ===== Container concept ===== */
+.concept-container {
+    min-height: 100vh;
+    width: 100%;
+    background: radial-gradient(circle at top, #fffaf3 0%, #f9e4c8 45%, #f1cfa1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+}
+
+/* Bouton retour */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+
+    background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+    color: #fffaf3;
+
+    font-weight: bold;
+    font-size: 0.95rem;
+
+    box-shadow:
+            inset -3px -3px 0 rgba(0, 0, 0, 0.25),
+            0 8px 18px rgba(0, 0, 0, 0.35);
+
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+            inset -2px -2px 0 rgba(0, 0, 0, 0.25),
+            0 12px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== Cookies décoratifs flottants (reprend ton style) ===== */
+.background-cookies {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.bg-cookie {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
+    opacity: 0.28;
+    filter: blur(0.2px);
+}
+
+/* Positions */
+.bg-cookie.c1 { top: 8%; left: 8%; transform: rotate(10deg); }
+.bg-cookie.c2 { top: 18%; right: 10%; transform: rotate(-12deg); }
+.bg-cookie.c3 { bottom: 14%; left: 12%; transform: rotate(20deg); }
+.bg-cookie.c4 { bottom: 10%; right: 8%; transform: rotate(-18deg); }
+.bg-cookie.c5 { top: 55%; left: 2%; transform: rotate(8deg); width: 90px; height: 90px; opacity: 0.22; }
+.bg-cookie.c6 { top: 62%; right: 3%; transform: rotate(-8deg); width: 95px; height: 95px; opacity: 0.22; }
+
+/* ===== Card principale ===== */
+.concept-card {
+    position: relative;
+    z-index: 2;
+    width: min(980px, 100%);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(180, 120, 60, 0.22);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(10px);
+    padding: 26px;
+}
+
+/* ===== Hero ===== */
+.concept-hero {
+    padding: 18px 18px 10px 18px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.25));
+    border: 1px solid rgba(180, 120, 60, 0.14);
+}
+
+.concept-title {
+    margin: 0;
+    font-size: clamp(28px, 3.4vw, 44px);
+    color: #6d3b12;
+    letter-spacing: 0.5px;
+}
+
+.concept-subtitle {
+    margin: 10px 0 0 0;
+    color: #6d3b12;
+    opacity: 0.9;
+    line-height: 1.55;
+    font-size: 16px;
+}
+
+/* Actions */
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: none;
+    cursor: pointer;
+    font-weight: 800;
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(180deg, #d88a49, #b86a2d);
+    color: #fff;
+    box-shadow: 0 16px 30px rgba(184, 106, 45, 0.28);
+}
+.primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 22px 44px rgba(184, 106, 45, 0.34);
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #6d3b12;
+    border: 1px solid rgba(180, 120, 60, 0.25);
+}
+.secondary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Grid blocs ===== */
+.concept-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.concept-block {
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(180, 120, 60, 0.16);
+    padding: 18px;
+    color: #6d3b12;
+}
+
+.concept-block h2 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.concept-block p {
+    margin: 0;
+    line-height: 1.55;
+    opacity: 0.92;
+}
+
+.concept-list {
+    margin: 12px 0 0 0;
+    padding-left: 18px;
+    line-height: 1.7;
+    opacity: 0.95;
+}
+
+/* Nuggets colorés */
+.nuggets {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.nugget {
+    width: 18px;
+    height: 18px;
+    border-radius: 8px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.nugget.n1 { background: #ff4d6d; }
+.nugget.n2 { background: #22c55e; }
+.nugget.n3 { background: #3b82f6; }
+.nugget.n4 { background: #f59e0b; }
+
+/* Badges */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.badge {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(180, 120, 60, 0.22);
+    font-weight: 800;
+    font-size: 13px;
+}
+
+/* CTA bloc */
+.concept-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+/* Footer */
+.concept-footer {
+    margin-top: 16px;
+    padding: 16px 10px 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #6d3b12;
+}
+.concept-footer p {
+    margin: 0;
+    font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+    .concept-grid {
+        grid-template-columns: 1fr;
+    }
+    .concept-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
