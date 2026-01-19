@@ -11,7 +11,7 @@ services:
       - USER_HOST=user-service
       - COMMAND_HOST=commands-service
     ports:
-      - "5000:5000"
+      - "5003:5000"
     depends_on:
       - user-service
     networks:
@@ -126,7 +126,7 @@ services:
     container_name: front_app
     restart: unless-stopped
     environment:
-      - REACT_APP_API_URL=http://api-gateway:5000
+      - REACT_APP_API_URL=http://localhost:5003
     ports:
       - "3000:3000"
     depends_on:

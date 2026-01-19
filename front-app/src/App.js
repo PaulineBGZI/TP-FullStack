@@ -1,10 +1,10 @@
 import './App.css';
 import Notification from "./Notification";
-import Home from "./components/Home";
-import Login from "./components/Login";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./components/Register";
+import Register from "./components/Register/Register";
 
 function App() {
   const [message, setMessage] = useState("");
