@@ -43,96 +43,144 @@ function Panier() {
                 .filter((it) => it.qty > 0)
         );
 
-    const remove = (id) =>
-        setItems((prev) => prev.filter((it) => it.id !== id));
-
+    const remove = (id) => setItems((prev) => prev.filter((it) => it.id !== id));
     const clear = () => setItems([]);
 
     const format = (n) =>
-        new Intl.NumberFormat("fr-FR", {
-            style: "currency",
-            currency: "EUR",
-        }).format(n);
+        new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 
     return (
-        <div className="panier-container">
-            <button className="back-button" onClick={() => navigate("/")}>
-                ← Retour
-            </button>
-
-            <div className="background-cookies">
-                <span className="bg-cookie c1"></span>
-                <span className="bg-cookie c2"></span>
-                <span className="bg-cookie c3"></span>
-                <span className="bg-cookie c4"></span>
+        <div className="page page--pastel panier-page">
+            {/* Floaties */}
+            <div className="floaties" aria-hidden="true">
+                <span className="floaty f1">🧺</span>
+                <span className="floaty f2">🍪</span>
+                <span className="floaty f3">🍪</span>
+                <span className="floaty f4">🍫</span>
+                <span className="floaty f5">🥛</span>
+                <span className="floaty f6">🍪</span>
             </div>
 
-            <div className="panier-card">
-                <h1 className="panier-title">Votre panier 🧺</h1>
+            {/* Header */}
+            <header className="site-header">
+                <div className="header-inner">
+                    <button className="brand" onClick={() => navigate("/")}>
+            <span className="brand-dot" aria-hidden="true">
+              🍪
+            </span>
+                        <span className="brand-text">Le Paradis des Cookies</span>
+                    </button>
 
-                {items.length === 0 ? (
-                    <div className="empty">
-                        <p>Votre panier est vide 🍪</p>
-                        <button className="primary-btn" onClick={() => navigate("/cookies")}>
-                            Découvrir nos cookies
+                    <nav className="nav">
+                        <button className="nav-link" onClick={() => navigate("/concept")}>
+                            Concept
+                        </button>
+                        <button className="nav-link" onClick={() => navigate("/cookies")}>
+                            Nos cookies
+                        </button>
+                        <button className="nav-link" onClick={() => navigate("/panier")}>
+                            Panier
+                        </button>
+                    </nav>
+
+                    <div className="header-actions">
+                        <button className="btn btn--primary" onClick={() => navigate("/login")}>
+                            Se connecter
                         </button>
                     </div>
-                ) : (
-                    <>
-                        <div className="panier-items">
-                            {items.map((it) => (
-                                <div className="panier-item" key={it.id}>
-                                    <div className="item-info">
-                                        <h3>{it.name}</h3>
-                                        <p>{it.desc}</p>
-                                    </div>
+                </div>
+            </header>
 
-                                    <div className="item-actions">
-                                        <div className="qty">
-                                            <button onClick={() => dec(it.id)}>−</button>
-                                            <span>{it.qty}</span>
-                                            <button onClick={() => inc(it.id)}>+</button>
+            {/* Content */}
+            <main className="panier-main">
+                <div className="card-glass panier-card">
+                    <div className="panier-head">
+                        <h1 className="panier-title">Votre panier 🧺</h1>
+                        {items.length > 0 && (
+                            <button className="btn btn--ghost" onClick={clear} type="button">
+                                Vider
+                            </button>
+                        )}
+                    </div>
+
+                    {items.length === 0 ? (
+                        <div className="empty">
+                            <p>Votre panier est vide 🍪</p>
+                            <button className="btn btn--primary btn--lg" onClick={() => navigate("/cookies")}>
+                                Découvrir nos cookies
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="panier-grid">
+                            {/* Items */}
+                            <div className="panier-items">
+                                {items.map((it) => (
+                                    <div className="panier-item" key={it.id}>
+                                        <div className="item-info">
+                                            <h3>{it.name}</h3>
+                                            <p>{it.desc}</p>
                                         </div>
 
-                                        <div className="price">
-                                            {format(it.price * it.qty)}
-                                        </div>
+                                        <div className="item-actions">
+                                            <div className="qty">
+                                                <button className="qty-btn" onClick={() => dec(it.id)} type="button">
+                                                    −
+                                                </button>
+                                                <span className="qty-val">{it.qty}</span>
+                                                <button className="qty-btn" onClick={() => inc(it.id)} type="button">
+                                                    +
+                                                </button>
+                                            </div>
 
-                                        <button
-                                            className="remove-btn"
-                                            onClick={() => remove(it.id)}
-                                        >
-                                            Supprimer
-                                        </button>
+                                            <div className="price">{format(it.price * it.qty)}</div>
+
+                                            <button className="remove-btn" onClick={() => remove(it.id)} type="button">
+                                                Supprimer
+                                            </button>
+                                        </div>
                                     </div>
+                                ))}
+                            </div>
+
+                            {/* Summary */}
+                            <div className="summary">
+                                <div className="row">
+                                    <span>Sous-total</span>
+                                    <span>{format(subtotal)}</span>
                                 </div>
-                            ))}
-                        </div>
+                                <div className="row">
+                                    <span>Livraison</span>
+                                    <span>{shipping === 0 ? "Offerte 🎉" : format(shipping)}</span>
+                                </div>
+                                <div className="row total">
+                                    <span>Total</span>
+                                    <span>{format(total)}</span>
+                                </div>
 
-                        <div className="summary">
-                            <div className="row">
-                                <span>Sous-total</span>
-                                <span>{format(subtotal)}</span>
-                            </div>
-                            <div className="row">
-                                <span>Livraison</span>
-                                <span>{shipping === 0 ? "Offerte 🎉" : format(shipping)}</span>
-                            </div>
-                            <div className="row total">
-                                <span>Total</span>
-                                <span>{format(total)}</span>
-                            </div>
+                                <button className="btn btn--primary btn--lg full" type="button">
+                                    Commander
+                                </button>
 
-                            <button className="primary-btn full">
-                                Commander
-                            </button>
-                            <button className="secondary-btn full" onClick={clear}>
-                                Vider le panier
-                            </button>
+                                <button className="btn btn--ghost btn--lg full" onClick={clear} type="button">
+                                    Vider le panier
+                                </button>
+
+                                <div className="fineprint">
+                                    Livraison offerte dès 25€ ✨
+                                </div>
+                            </div>
                         </div>
-                    </>
-                )}
-            </div>
+                    )}
+                </div>
+            </main>
+
+            <footer className="site-footer">
+                <div className="footer-inner">
+                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
+                    <span className="footer-sep">•</span>
+                    <span>Bon shopping 🍪</span>
+                </div>
+            </footer>
         </div>
     );
 }
