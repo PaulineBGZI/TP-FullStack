@@ -5,8 +5,7 @@ import Login from "./components/Login/Login";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./components/Register/Register";
-import CookiesPage from "./components/Cookies/CookiesPage";
-import AdminCookies from "./components/Admin/AdminCookies";
+import Cookies from "./components/Cookies/Cookies";
 import Concept from "./components/Concept/Concept";
 import Panier from "./components/Panier/Panier";
 
@@ -31,8 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/cookies" element={<CookiesPage />} />
-          <Route path="/admin/cookies" element={<AdminCookies />} />
+          <Route path="/cookies" element={<Cookies />} />
           <Route path="/concept" element={<Concept />} />
           <Route path="/panier" element={<Panier />} />
         </Routes>

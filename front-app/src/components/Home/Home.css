@@ -1,382 +1,120 @@
-/* ===== Container paradis ===== */
-.home-container {
-  min-height: 100vh;
-  background: radial-gradient(
-          circle at top,
-          #fffaf3 0%,
-          #f9e4c8 45%,
-          #f1cfa1 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.home {
   position: relative;
-  overflow: hidden;
-  padding: 20px;
-}
-
-/* ===== Cookies décoratifs flottants ===== */
-.background-cookies {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bg-cookie {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
-  border-radius: 50%;
-  opacity: 0.25;
-  animation: float 18s ease-in-out infinite;
-  filter: blur(1px);
-}
-
-.bg-cookie::before {
-  content: "";
-  position: absolute;
-  inset: 15%;
-  border-radius: 50%;
-  background: radial-gradient(
-          circle at 40% 40%,
-          rgba(255, 255, 255, 0.3),
-          transparent
-  );
-}
-
-.bg-cookie::after {
-  content: "";
-  position: absolute;
-  inset: 20%;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-/* Positions & vitesses */
-.c1 { top: 10%; left: 5%; animation-duration: 9s; animation-delay: 0s; }
-.c2 { top: 70%; left: 10%; animation-duration: 11s; animation-delay: -2s; }
-.c3 { top: 20%; right: 8%; animation-duration: 10s; animation-delay: -4s; }
-.c4 { bottom: 15%; right: 12%; animation-duration: 12s; animation-delay: -6s; }
-.c5 { top: 50%; left: 45%; animation-duration: 13s; animation-delay: -8s; }
-.c6 { bottom: 5%; left: 60%; animation-duration: 9s; animation-delay: -3s; }
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-30px) translateX(15px) rotate(5deg);
-  }
-  50% {
-    transform: translateY(-40px) translateX(20px) rotate(-3deg);
-  }
-  75% {
-    transform: translateY(-25px) translateX(10px) rotate(4deg);
-  }
-}
-
-/* ===== Cookie central ===== */
-.cookie {
-  width: 440px;
-  height: 440px;
-  background: radial-gradient(circle at 30% 30%, #f2c88f, #d9a15e);
-  border-radius: 50%;
-  position: relative;
-  z-index: 1;
-  box-shadow:
-          inset -12px -12px 0 rgba(0, 0, 0, 0.08),
-          inset 10px 10px 0 rgba(255, 255, 255, 0.25),
-          0 25px 60px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  animation: gentlePulse 4s ease-in-out infinite;
-}
-
-@keyframes gentlePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02);
-  }
-}
-
-/* Aura douce avec animation */
-.cookie::before {
-  content: "";
-  position: absolute;
-  inset: -50px;
-  border-radius: 50%;
-  background: radial-gradient(
-          circle,
-          rgba(255, 230, 180, 0.5),
-          rgba(255, 200, 150, 0.2) 50%,
-          transparent 70%
-  );
-  z-index: -1;
-  animation: glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-/* Reflet brillant sur le cookie */
-.cookie::after {
-  content: "";
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(
-          ellipse at top left,
-          rgba(255, 255, 255, 0.4),
-          transparent 60%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* ===== Texte ===== */
-.cookie-title {
-  font-size: 2.6rem;
-  color: #3b1f0e;
-  margin: 0;
-  font-weight: 800;
-  text-shadow:
-          2px 2px 4px rgba(255, 255, 255, 0.5),
-          -1px -1px 2px rgba(0, 0, 0, 0.1);
-  letter-spacing: 0.5px;
-}
-
-.cookie-subtitle {
-  margin-top: 12px;
-  font-size: 1rem;
-  color: #4a2a16;
-  line-height: 1.6;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
-}
-
-/* ===== Pépites ===== */
-.chips {
-  position: absolute;
-  inset: 0;
-}
-
-.chip {
-  position: absolute;
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
-  box-shadow:
-          inset -6px -6px 0 rgba(0, 0, 0, 0.25),
-          0 10px 25px rgba(0, 0, 0, 0.35);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  line-height: 1.2;
-}
-
-/* Reflet sur les pépites */
-.chip::before {
-  content: "";
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 30%;
-  height: 30%;
-  background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.3),
-          transparent
-  );
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* Hover amélioré avec rotation et glow */
-.chip:hover {
-  transform: scale(1.2) rotate(5deg);
-  box-shadow:
-          0 0 25px rgba(255, 210, 150, 1),
-          0 0 45px rgba(255, 180, 100, 0.7),
-          0 15px 35px rgba(0, 0, 0, 0.4);
-  filter: brightness(1.15);
-}
-
-.chip:active {
-  transform: scale(1.1) rotate(3deg);
-  transition: all 0.1s;
-}
-
-/* Positions */
-.chip-1 {
-  top: -30px;
-  left: 40%;
-  animation: chipFloat 3s ease-in-out infinite;
-  animation-delay: 0s;
-}
-.chip-2 {
-  top: 40%;
-  right: -40px;
-  animation: chipFloat 3.5s ease-in-out infinite;
-  animation-delay: -0.5s;
-}
-.chip-3 {
-  bottom: -30px;
-  left: 40%;
-  animation: chipFloat 3.2s ease-in-out infinite;
-  animation-delay: -1s;
-}
-.chip-4 {
-  top: 40%;
-  left: -30px;
-  animation: chipFloat 3.8s ease-in-out infinite;
-  animation-delay: -1.5s;
-}
-
-@keyframes chipFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(2deg);
-  }
-}
-
-/* ===== Bouton Se connecter ===== */
-.login-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   z-index: 2;
-  padding: 12px 24px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
+  padding: 26px 18px 40px;
+}
 
-  background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
-  color: #fffaf3;
-  font-weight: bold;
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(12px);
+  border-radius: 26px;
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
+  padding: 22px;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: rgba(60, 43, 28, 0.78);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.hero-title {
+  margin: 14px 0 10px;
+  font-size: clamp(2.0rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  color: #3c2b1c;
+  font-weight: 1000;
+  letter-spacing: -0.6px;
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: rgba(60, 43, 28, 0.78);
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+.hero-cta {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  border-radius: 18px;
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+}
+
+
+.stat-kpi { font-size: 1.2rem; }
+
+.stat-label {
+  font-weight: 900;
+  color: rgba(60, 43, 28, 0.78);
   font-size: 0.95rem;
-
-  box-shadow:
-          inset -3px -3px 0 rgba(0, 0, 0, 0.25),
-          0 8px 18px rgba(0, 0, 0, 0.35);
-
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Reflet sur le bouton */
-.login-button::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 20%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(
-          ellipse,
-          rgba(255, 255, 255, 0.3),
-          transparent
-  );
-  border-radius: 50%;
-  pointer-events: none;
+.hero-side { display: grid; gap: 14px; }
+
+.side-card {
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  border: 1px solid rgba(140, 110, 80, 0.12);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+  padding: 18px;
 }
 
-.login-button:hover {
-  transform: scale(1.08) translateY(-2px);
-  box-shadow:
-          0 0 20px rgba(255, 210, 150, 0.9),
-          0 0 35px rgba(255, 180, 100, 0.6),
-          0 12px 25px rgba(0, 0, 0, 0.3);
-  filter: brightness(1.1);
+.side-card--light { background: rgba(255, 255, 255, 0.62); }
+
+.side-title {
+  margin: 0 0 8px;
+  color: #3c2b1c;
+  font-weight: 1000;
+  letter-spacing: -0.2px;
 }
 
-.login-button:active {
-  transform: scale(1.02) translateY(0);
-  transition: all 0.1s;
+.side-text {
+  margin: 0 0 12px;
+  color: rgba(60, 43, 28, 0.78);
+  line-height: 1.6;
+  font-weight: 650;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .cookie {
-    width: 340px;
-    height: 340px;
-  }
-
-  .cookie-title {
-    font-size: 2rem;
-  }
-
-  .chip {
-    width: 75px;
-    height: 75px;
-    font-size: 0.8rem;
-  }
-
-  .chip-1 { top: -25px; left: 38%; }
-  .chip-2 { right: -30px; }
-  .chip-3 { bottom: -25px; left: 38%; }
-  .chip-4 { left: -25px; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 480px) {
-  .cookie {
-    width: 280px;
-    height: 280px;
-  }
-
-  .cookie-title {
-    font-size: 1.6rem;
-  }
-
-  .cookie-subtitle {
-    font-size: 0.85rem;
-  }
-
-  .chip {
-    width: 65px;
-    height: 65px;
-    font-size: 0.7rem;
-  }
-
-  .chip-1 { top: -20px; left: 37%; }
-  .chip-2 { right: -25px; }
-  .chip-3 { bottom: -20px; left: 37%; }
-  .chip-4 { left: -20px; }
-
-  .login-button {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    top: 15px;
-    right: 15px;
-  }
-
-  .bg-cookie {
-    width: 80px;
-    height: 80px;
-  }
+@media (max-width: 520px) {
+  .hero-stats { grid-template-columns: 1fr; }
 }
