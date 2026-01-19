@@ -37,7 +37,7 @@ function Home() {
 
         <div className="chips">
           <div className="chip chip-2">Vos avis</div>
-          <div className="chip chip-3"onClick={() => navigate("/concept")}>Le<br />concept</div>
+          <div className="chip chip-3" onClick={() => navigate("/concept")}>Le<br />concept</div>
           <div className="chip chip-1" onClick={() => navigate("/cookies")}>Nos<br />cookies</div>
           <div className="chip chip-4">Panier</div>
 
