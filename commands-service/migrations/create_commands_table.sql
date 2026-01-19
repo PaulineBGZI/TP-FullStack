@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS cookies (
     cookie_name TEXT NOT NULL,
     quantity INT NOT NULL CHECK (quantity > 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT date_trunc('second', now()),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT date_trunc('second', now()),
 
     CONSTRAINT fk_cookie_pepite
         FOREIGN KEY (pepite_id)
