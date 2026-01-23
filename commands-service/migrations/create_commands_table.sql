@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS cookies (
     pepite_id BIGINT NOT NULL,
     cookie_name TEXT NOT NULL,
     quantity INT NOT NULL CHECK (quantity > 0),
+    price NUMERIC(10,2) NOT NULL CHECK (price >= 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT date_trunc('second', now()),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT date_trunc('second', now()),
 

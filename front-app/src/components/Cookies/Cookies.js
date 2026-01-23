@@ -25,12 +25,42 @@ export default function Cookies() {
                 setError("");
                 setInfo("");
 
-                const [c, b] = await Promise.all([CookiesAPI.list(), BoxesAPI.list()]);
-                setCookies(Array.isArray(c) ? c : []);
-                setBoxes(Array.isArray(b) ? b : []);
+                // 1) Cookies : l'API renvoie des objets du style:
+                // { id, pepite_id, cookie_name, quantity, created_at }
+                const cRaw = await CookiesAPI.list();
 
-                if (Array.isArray(c) && c.length) setSelectedCookieId(c[0].id);
-                if (Array.isArray(b) && b.length) setSelectedBoxId(b[0].id);
+                const normalizedCookies = (Array.isArray(cRaw) ? cRaw : []).map((x) => ({
+                    id: String(x.id),
+                    name: x.cookie_name ?? "",
+                    description: `Pépite #${x.pepite_id ?? "—"} • Stock: ${x.quantity ?? "—"}`,
+                    // Pas de prix dans la réponse actuelle : on met 0 pour éviter NaN
+                    price: 0,
+                    _raw: x,
+                }));
+
+                setCookies(normalizedCookies);
+
+                if (normalizedCookies.length) {
+                    setSelectedCookieId(normalizedCookies[0].id);
+                } else {
+                    setSelectedCookieId("");
+                }
+
+                // 2) Boxes : pas encore dispo -> on ignore si ça échoue
+                try {
+                    const bRaw = await BoxesAPI.list();
+                    const normalizedBoxes = Array.isArray(bRaw) ? bRaw : [];
+                    setBoxes(normalizedBoxes);
+
+                    if (normalizedBoxes.length) {
+                        setSelectedBoxId(String(normalizedBoxes[0].id));
+                    } else {
+                        setSelectedBoxId("");
+                    }
+                } catch (e) {
+                    setBoxes([]);
+                    setSelectedBoxId("");
+                }
             } catch (e) {
                 setError(e.message);
             } finally {
@@ -39,22 +69,23 @@ export default function Cookies() {
         })();
     }, []);
 
-    const selectedCookie = cookies.find((c) => c.id === selectedCookieId);
-    const selectedBox = boxes.find((b) => b.id === selectedBoxId);
+    const selectedCookie = cookies.find((c) => String(c.id) === String(selectedCookieId));
+    const selectedBox = boxes.find((b) => String(b.id) === String(selectedBoxId));
 
     async function handleCreateOrder() {
         try {
             setError("");
             setInfo("");
 
-            if (!selectedCookieId || !selectedBoxId) {
-                setError("Choisis un cookie et une boîte.");
+            // Tant que boxes n'existe pas, on n'oblige pas le choix de boîte
+            if (!selectedCookieId) {
+                setError("Choisis un cookie.");
                 return;
             }
 
             await OrdersAPI.create({
                 cookieId: selectedCookieId,
-                boxId: selectedBoxId,
+                boxId: selectedBoxId || null,
                 quantity: Number(quantity),
                 message,
             });
@@ -83,9 +114,9 @@ export default function Cookies() {
             <header className="site-header">
                 <div className="header-inner">
                     <button className="brand" onClick={() => navigate("/")}>
-            <span className="brand-dot" aria-hidden="true">
-              🍪
-            </span>
+                        <span className="brand-dot" aria-hidden="true">
+                            🍪
+                        </span>
                         <span className="brand-text">Le Paradis des Cookies</span>
                     </button>
 
@@ -148,15 +179,15 @@ export default function Cookies() {
                                     {cookies.map((c) => (
                                         <button
                                             key={c.id}
-                                            className={`item ${c.id === selectedCookieId ? "active" : ""}`}
-                                            onClick={() => setSelectedCookieId(c.id)}
+                                            className={`item ${String(c.id) === String(selectedCookieId) ? "active" : ""}`}
+                                            onClick={() => setSelectedCookieId(String(c.id))}
                                             type="button"
                                         >
                                             <div className="item-main">
-                                                <div className="item-name">{c.cookie_name}</div>
-                                                {/* <div className="item-desc">{c.description}</div> */}
+                                                <div className="item-name">{c.name}</div>
+                                                <div className="item-desc">{c.description}</div>
                                             </div>
-                                            {/* <div className="item-price">{Number(c.price).toFixed(2)} €</div> */}
+                                            <div className="item-price">{(Number(c.price) || 0).toFixed(2)} €</div>
                                         </button>
                                     ))}
                                 </div>
@@ -178,23 +209,32 @@ export default function Cookies() {
                                     </div>
                                 </div>
 
-                                <h3 className="section-title">Choisir une boîte</h3>
-                                <div className="boxes">
-                                    {boxes.map((b) => (
-                                        <button
-                                            key={b.id}
-                                            className={`box ${b.id === selectedBoxId ? "active" : ""}`}
-                                            onClick={() => setSelectedBoxId(b.id)}
-                                            type="button"
-                                        >
-                      <span
-                          className="swatch"
-                          style={{ backgroundColor: b.colorHex || "#ddd" }}
-                      />
-                                            <span className="box-name">{b.colorName}</span>
-                                        </button>
-                                    ))}
-                                </div>
+                                {/* Boxes : pas encore dispo -> petit message */}
+                                {boxes.length === 0 ? (
+                                    <div className="card-glass cookies-loading">
+                                        Boîtes bientôt dispo ✨
+                                    </div>
+                                ) : (
+                                    <>
+                                        <h3 className="section-title">Choisir une boîte</h3>
+                                        <div className="boxes">
+                                            {boxes.map((b) => (
+                                                <button
+                                                    key={b.id}
+                                                    className={`box ${String(b.id) === String(selectedBoxId) ? "active" : ""}`}
+                                                    onClick={() => setSelectedBoxId(String(b.id))}
+                                                    type="button"
+                                                >
+                                                    <span
+                                                        className="swatch"
+                                                        style={{ backgroundColor: b.colorHex || "#ddd" }}
+                                                    />
+                                                    <span className="box-name">{b.colorName}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
 
                                 <div className="form">
                                     <label>
