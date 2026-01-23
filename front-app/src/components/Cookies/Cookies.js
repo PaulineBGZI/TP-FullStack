@@ -1,17 +1,22 @@
 import "./Cookies.css";
-import { useEffect, useState } from "react";
-import { CookiesAPI, OrdersAPI } from "../../api/api";
+import { useEffect, useMemo, useState } from "react";
+import { CookiesAPI } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
 import Floaties from "../../components/Floaties";
+import { useCart } from "../../context/CartContext";
 
 export default function Cookies() {
     const navigate = useNavigate();
+    const cart = useCart();
 
     const [cookies, setCookies] = useState([]);
 
+    // cookie sélectionné dans la liste (celui qu’on personnalise)
     const [selectedCookieId, setSelectedCookieId] = useState("");
+
+    // personnalisation (local, pas le panier)
     const [quantity, setQuantity] = useState(1);
     const [message, setMessage] = useState("");
 
@@ -31,7 +36,6 @@ export default function Cookies() {
                     id: String(x.id),
                     name: x.cookie_name ?? "",
                     description: `Pépite #${x.pepite_id ?? "—"} • Stock: ${x.quantity ?? "—"}`,
-                    // Pas de prix dans la réponse actuelle : on met 0 pour éviter NaN
                     price: x.price ?? 0,
                     _raw: x,
                 }));
@@ -51,27 +55,43 @@ export default function Cookies() {
         })();
     }, []);
 
-    const selectedCookie = cookies.find((c) => String(c.id) === String(selectedCookieId));
+    const selectedCookie = useMemo(
+        () => cookies.find((c) => String(c.id) === String(selectedCookieId)),
+        [cookies, selectedCookieId]
+    );
 
-    async function handleCreateOrder() {
+    // Quand on change de cookie, on reset la personnalisation (plus clean)
+    useEffect(() => {
+        setQuantity(1);
+        setMessage("");
+    }, [selectedCookieId]);
+
+    function handleAddToCart() {
         try {
             setError("");
-            setInfo("");
 
-            if (!selectedCookieId) {
+            if (!selectedCookie) {
                 setError("Choisis un cookie.");
                 return;
             }
 
-            await OrdersAPI.create({
-                cookieId: selectedCookieId,
-                quantity: Number(quantity),
-                message,
+            const qty = Math.max(1, Math.floor(Number(quantity) || 1));
+
+            cart.addItem({
+                cookieId: selectedCookie.id,
+                name: selectedCookie.name,
+                price: selectedCookie.price,
+                qty,
+                message: String(message || ""),
             });
 
-            setInfo("Commande créée avec succès ! 🎉");
-            setMessage("");
+            // petit feedback + reset
+            setInfo("Ajouté au panier ! 🧺");
+            window.clearTimeout(handleAddToCart._t);
+            handleAddToCart._t = window.setTimeout(() => setInfo(""), 2500);
+
             setQuantity(1);
+            setMessage("");
         } catch (e) {
             setError(e.message);
         }
@@ -87,7 +107,7 @@ export default function Cookies() {
                 <div className="cookies-head">
                     <h1 className="cookies-title">Nos cookies 🍪</h1>
                     <p className="cookies-subtitle">
-                        Choisis ton cookie, la quantité… et ajoute un petit message si tu veux ✨
+                        Choisis un cookie, personnalise-le… puis ajoute-le au panier ✨
                     </p>
                 </div>
 
@@ -101,15 +121,25 @@ export default function Cookies() {
                                 <div className="fetch-text">
                                     <strong>Impossible de charger les cookies</strong>
                                     <span>
-                    Le serveur ne répond pas pour le moment.
-                    Réessaie dans quelques instants 🍪
-                  </span>
+                                        Le serveur ne répond pas pour le moment.
+                                        Réessaie dans quelques instants 🍪
+                                    </span>
                                 </div>
                             </div>
                         )}
-                        {info && <div className="alert alert-info">{info}</div>}
+
+                        {info && (
+                            <div className="fetch-error">
+                                <span className="fetch-icon">✅</span>
+                                <div className="fetch-text">
+                                    <strong>Panier mis à jour</strong>
+                                    <span>{info}</span>
+                                </div>
+                            </div>
+                        )}
 
                         <section className="cookies-grid">
+                            {/* LISTE COOKIES */}
                             <div className="card-glass panel">
                                 <div className="panel-title">
                                     <h2>Cookies disponibles</h2>
@@ -134,51 +164,69 @@ export default function Cookies() {
                                 </div>
                             </div>
 
+                            {/* PERSONNALISATION */}
                             <div className="card-glass panel">
                                 <div className="panel-title">
                                     <h2>Personnalisation</h2>
                                 </div>
 
-                                <div className="summary">
-                                    <div>
-                                        <strong>Cookie :</strong> {selectedCookie ? selectedCookie.name : ""}
+                                {!selectedCookie ? (
+                                    <div className="empty-state" style={{ marginTop: 14 }}>
+                                        Aucun cookie sélectionné 🍪
                                     </div>
-                                </div>
+                                ) : (
+                                    <>
+                                        <div className="summary">
+                                            <div>
+                                                <strong>Cookie :</strong> {selectedCookie.name}
+                                            </div>
+                                        </div>
 
-                                <div className="form">
-                                    <label>
-                                        Quantité
-                                        <input
-                                            type="number"
-                                            min="1"
-                                            value={quantity}
-                                            onChange={(e) => setQuantity(e.target.value)}
-                                        />
-                                    </label>
+                                        <div className="form">
+                                            <label>
+                                                Quantité
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={quantity}
+                                                    onChange={(e) => setQuantity(e.target.value)}
+                                                />
+                                            </label>
 
-                                    <label>
-                                        Message sur la boîte (optionnel)
-                                        <input
-                                            type="text"
-                                            placeholder="Ex : Joyeux anniversaire !"
-                                            value={message}
-                                            onChange={(e) => setMessage(e.target.value)}
-                                        />
-                                    </label>
+                                            <label>
+                                                Message sur la boîte (optionnel)
+                                                <input
+                                                    type="text"
+                                                    placeholder="Ex : Joyeux anniversaire !"
+                                                    value={message}
+                                                    onChange={(e) => setMessage(e.target.value)}
+                                                />
+                                            </label>
 
-                                    <div className="cta-row">
-                                        <button className="btn btn--primary btn--lg" onClick={handleCreateOrder}>
-                                            Commander
-                                        </button>
-                                        <button className="btn btn--ghost btn--lg" type="button" onClick={() => navigate("/panier")}>
-                                            Voir le panier
-                                        </button>
-                                    </div>
+                                            <div className="cta-row">
+                                                <button
+                                                    className="btn btn--primary btn--lg"
+                                                    type="button"
+                                                    onClick={handleAddToCart}
+                                                >
+                                                    Ajouter au panier
+                                                </button>
 
-                                    <div className="fineprint">
-                                        Astuce : Une pépite colorée peut te donner un coupon 🎁
-                                    </div>
-                                </div>
+                                                <button
+                                                    className="btn btn--ghost btn--lg"
+                                                    type="button"
+                                                    onClick={() => navigate("/panier")}
+                                                >
+                                                    Voir le panier ({cart.items.length})
+                                                </button>
+                                            </div>
+
+                                            <div className="fineprint">
+                                                Astuce : Une pépite colorée peut te donner un coupon 🎁
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </section>
                     </>

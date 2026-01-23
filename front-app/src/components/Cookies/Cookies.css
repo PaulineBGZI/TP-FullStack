@@ -121,6 +121,7 @@
             rgba(255, 231, 181, 0.60)
     );
     box-shadow: 0 20px 46px rgba(0, 0, 0, 0.14);
+    margin-top: 15px;
 }
 
 .item-main {
