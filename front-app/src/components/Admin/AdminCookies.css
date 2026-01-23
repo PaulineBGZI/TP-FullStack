@@ -1,0 +1,210 @@
+/* ============================================================
+   ADMIN COOKIES – STYLE ALIGNÉ SUR UI.CSS + COOKIES.CSS
+   ============================================================ */
+
+.admin-cookies-page {
+    /* on réutilise le layout global page + pastel */
+    position: relative;
+}
+
+/* Main */
+.admin-cookies-main {
+    position: relative;
+    z-index: 2;
+    padding: 26px 18px 44px;
+}
+
+.admin-cookies-head {
+    max-width: 1100px;
+    margin: 0 auto 18px;
+    text-align: center;
+}
+
+.admin-cookies-title {
+    margin: 6px 0 10px;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 1000;
+    letter-spacing: -0.6px;
+    color: var(--text);
+}
+
+.admin-cookies-subtitle {
+    margin: 0;
+    color: var(--text-soft);
+    font-weight: 650;
+    line-height: 1.6;
+}
+
+/* Grid similaire cookies */
+.admin-grid {
+    max-width: 1100px;
+    margin: 18px auto 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 18px;
+    align-items: start;
+}
+
+/* Card "panel" */
+.admin-panel {
+    min-width: 0;
+}
+
+.admin-panel.card-glass {
+    padding: 18px;
+    border-radius: 24px;
+    background: var(--glass-strong);
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+/* Header de panel */
+.admin-panel-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(140, 110, 80, 0.18);
+}
+
+.admin-panel-title h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 1000;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.admin-panel-hint {
+    font-weight: 850;
+    color: rgba(60, 43, 28, 0.62);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* Form */
+.admin-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.admin-form label {
+    display: grid;
+    gap: 8px;
+    font-weight: 900;
+    color: rgba(60, 43, 28, 0.82);
+}
+
+.admin-form input {
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(140, 110, 80, 0.16);
+    background: rgba(255, 255, 255, 0.86);
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--text);
+    outline: none;
+}
+
+.admin-form-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* List */
+.admin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+/* item style = similaire à .item */
+.admin-item {
+    border: 1px solid rgba(140, 110, 80, 0.14);
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 18px;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.admin-item-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-item-title {
+    font-weight: 1000;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.admin-item-sub {
+    color: rgba(60, 43, 28, 0.74);
+    font-weight: 650;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.admin-item-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.btn--danger {
+    background: rgba(255, 120, 120, 0.22);
+    border: 1px solid rgba(160, 60, 60, 0.18);
+    color: #6b1f1f;
+}
+
+.btn--danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+}
+
+/* Small helpers */
+.admin-muted {
+    margin-top: 14px;
+    text-align: center;
+    font-weight: 800;
+    color: rgba(60, 43, 28, 0.72);
+}
+
+/* Anti overflow */
+.admin-cookies-page,
+.admin-cookies-page *,
+.admin-cookies-page *::before,
+.admin-cookies-page *::after {
+    box-sizing: border-box;
+}
+
+.admin-grid > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-form-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-item-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

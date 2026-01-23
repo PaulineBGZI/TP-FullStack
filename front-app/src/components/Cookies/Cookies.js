@@ -1,7 +1,10 @@
-import "./Cookies.css";
+((import "./Cookies.css";
 import { useEffect, useState } from "react";
 import { CookiesAPI, BoxesAPI, OrdersAPI } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import Floaties from "../../components/Floaties";
 
 export default function Cookies() {
     const navigate = useNavigate();
@@ -100,47 +103,10 @@ export default function Cookies() {
 
     return (
         <div className="page page--pastel cookies-clean">
-            {/* Floaties */}
-            <div className="floaties" aria-hidden="true">
-                <span className="floaty f1">🍪</span>
-                <span className="floaty f2">🍪</span>
-                <span className="floaty f3">🧁</span>
-                <span className="floaty f4">🍪</span>
-                <span className="floaty f5">🍫</span>
-                <span className="floaty f6">🥛</span>
-            </div>
+            <Floaties items={["🍪", "🍪", "🧁", "🍪", "🍫", "🥛"]} />
 
-            {/* Header */}
-            <header className="site-header">
-                <div className="header-inner">
-                    <button className="brand" onClick={() => navigate("/")}>
-                        <span className="brand-dot" aria-hidden="true">
-                            🍪
-                        </span>
-                        <span className="brand-text">Le Paradis des Cookies</span>
-                    </button>
+            <SiteHeader />
 
-                    <nav className="nav">
-                        <button className="nav-link" onClick={() => navigate("/concept")}>
-                            Concept
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/cookies")}>
-                            Nos cookies
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/panier")}>
-                            Panier
-                        </button>
-                    </nav>
-
-                    <div className="header-actions">
-                        <button className="btn btn--primary" onClick={() => navigate("/login")}>
-                            Se connecter
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Content */}
             <main className="cookies-main">
                 <div className="cookies-head">
                     <h1 className="cookies-title">Nos cookies 🍪</h1>
@@ -159,16 +125,15 @@ export default function Cookies() {
                                 <div className="fetch-text">
                                     <strong>Impossible de charger les cookies</strong>
                                     <span>
-                                        Le serveur ne répond pas pour le moment.
-                                        Réessaie dans quelques instants 🍪
-                                    </span>
+                    Le serveur ne répond pas pour le moment.
+                    Réessaie dans quelques instants 🍪
+                  </span>
                                 </div>
                             </div>
                         )}
                         {info && <div className="alert alert-info">{info}</div>}
 
                         <section className="cookies-grid">
-                            {/* Left: cookies list */}
                             <div className="card-glass panel">
                                 <div className="panel-title">
                                     <h2>Cookies disponibles</h2>
@@ -193,7 +158,6 @@ export default function Cookies() {
                                 </div>
                             </div>
 
-                            {/* Right: customization */}
                             <div className="card-glass panel">
                                 <div className="panel-title">
                                     <h2>Personnalisation</h2>
@@ -209,32 +173,20 @@ export default function Cookies() {
                                     </div>
                                 </div>
 
-                                {/* Boxes : pas encore dispo -> petit message */}
-                                {boxes.length === 0 ? (
-                                    <div className="card-glass cookies-loading">
-                                        Boîtes bientôt dispo ✨
-                                    </div>
-                                ) : (
-                                    <>
-                                        <h3 className="section-title">Choisir une boîte</h3>
-                                        <div className="boxes">
-                                            {boxes.map((b) => (
-                                                <button
-                                                    key={b.id}
-                                                    className={`box ${String(b.id) === String(selectedBoxId) ? "active" : ""}`}
-                                                    onClick={() => setSelectedBoxId(String(b.id))}
-                                                    type="button"
-                                                >
-                                                    <span
-                                                        className="swatch"
-                                                        style={{ backgroundColor: b.colorHex || "#ddd" }}
-                                                    />
-                                                    <span className="box-name">{b.colorName}</span>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
+                                <h3 className="section-title">Choisir une boîte</h3>
+                                <div className="boxes">
+                                    {boxes.map((b) => (
+                                        <button
+                                            key={b.id}
+                                            className={`box ${b.id === selectedBoxId ? "active" : ""}`}
+                                            onClick={() => setSelectedBoxId(b.id)}
+                                            type="button"
+                                        >
+                                            <span className="swatch" style={{ backgroundColor: b.colorHex || "#ddd" }} />
+                                            <span className="box-name">{b.colorName}</span>
+                                        </button>
+                                    ))}
+                                </div>
 
                                 <div className="form">
                                     <label>
@@ -261,11 +213,7 @@ export default function Cookies() {
                                         <button className="btn btn--primary btn--lg" onClick={handleCreateOrder}>
                                             Commander
                                         </button>
-                                        <button
-                                            className="btn btn--ghost btn--lg"
-                                            type="button"
-                                            onClick={() => navigate("/panier")}
-                                        >
+                                        <button className="btn btn--ghost btn--lg" type="button" onClick={() => navigate("/panier")}>
                                             Voir le panier
                                         </button>
                                     </div>
@@ -280,13 +228,7 @@ export default function Cookies() {
                 )}
             </main>
 
-            <footer className="site-footer">
-                <div className="footer-inner">
-                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
-                    <span className="footer-sep">•</span>
-                    <span>Team moelleux 🍯</span>
-                </div>
-            </footer>
+            <SiteFooter right="Team moelleux 🍯" />
         </div>
     );
 }
