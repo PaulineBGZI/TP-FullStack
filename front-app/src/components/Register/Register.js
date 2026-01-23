@@ -1,50 +1,18 @@
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import Floaties from "../../components/Floaties";
 
 function Register() {
     const navigate = useNavigate();
 
     return (
         <div className="page page--pastel register-page">
-            {/* Floaties */}
-            <div className="floaties" aria-hidden="true">
-                <span className="floaty f1">🍪</span>
-                <span className="floaty f2">🍪</span>
-                <span className="floaty f3">🥛</span>
-                <span className="floaty f4">🍫</span>
-                <span className="floaty f5">🍪</span>
-                <span className="floaty f6">🧁</span>
-            </div>
+            <Floaties items={["🍪", "🍪", "🥛", "🍫", "🍪", "🧁"]} />
 
-            {/* Header (identique aux autres pages) */}
-            <header className="site-header">
-                <div className="header-inner">
-                    <button className="brand" onClick={() => navigate("/")}>
-                        <span className="brand-dot" aria-hidden="true">🍪</span>
-                        <span className="brand-text">Le Paradis des Cookies</span>
-                    </button>
+            <SiteHeader />
 
-                    <nav className="nav">
-                        <button className="nav-link" onClick={() => navigate("/concept")}>
-                            Concept
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/cookies")}>
-                            Nos cookies
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/panier")}>
-                            Panier
-                        </button>
-                    </nav>
-
-                    <div className="header-actions">
-                        <button className="btn btn--primary" onClick={() => navigate("/login")}>
-                            Se connecter
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Content */}
             <main className="register-main">
                 <div className="register-card card-glass">
                     <div className="register-head">
@@ -95,13 +63,7 @@ function Register() {
                 </div>
             </main>
 
-            <footer className="site-footer">
-                <div className="footer-inner">
-                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
-                    <span className="footer-sep">•</span>
-                    <span>Fait avec amour et un peu de chocolat 🍫</span>
-                </div>
-            </footer>
+            <SiteFooter right="Fait avec amour et un peu de chocolat 🍫" />
         </div>
     );
 }
