@@ -8,6 +8,7 @@ export async function getAllCookies(): Promise<Cookie[]> {
       pepite_id,
       cookie_name,
       quantity,
+      price,
       created_at
     FROM cookies
     ORDER BY created_at DESC
@@ -23,6 +24,7 @@ export async function getCookie(id: string): Promise<Cookie[]> {
           pepite_id,
           cookie_name,
           quantity,
+          price,
           created_at
         FROM cookies
         WHERE id = $1;
