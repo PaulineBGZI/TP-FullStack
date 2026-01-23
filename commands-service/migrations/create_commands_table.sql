@@ -67,6 +67,17 @@ CREATE TABLE IF NOT EXISTS cookies (
         ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS cookie_color (
+    id BIGSERIAL PRIMARY KEY,
+    panier_id BIGINT NOT NULL,
+    color TEXT NOT NULL,
+
+    CONSTRAINT fk_cookie_color_panier
+        FOREIGN KEY (panier_id)
+        REFERENCES panier(id)
+        ON DELETE CASCADE
+);
+
 CREATE OR REPLACE FUNCTION update_panier_total()
 RETURNS TRIGGER AS $$
 BEGIN
