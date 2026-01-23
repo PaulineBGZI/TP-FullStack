@@ -1,43 +1,44 @@
 import "./Panier.css";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
 import Floaties from "../../components/Floaties";
+import { useCart } from "../../context/CartContext";
 
 function Panier() {
     const navigate = useNavigate();
+    const cart = useCart();
 
-    // Données temporaires
-    const [items, setItems] = useState([
-        {
-            id: 1,
-            name: "Cookie Chocolat Noisette",
-            desc: "Moelleux, pépites chocolat",
-            price: 3.5,
-            qty: 2,
-        },
-        {
-            id: 2,
-            name: "Cookie Vanille Cactus 🌵",
-            desc: "Décoration personnalisée",
-            price: 4.2,
-            qty: 1,
-        },
-    ]);
+    const items = cart.items || [];
 
-    const subtotal = useMemo(() => items.reduce((acc, it) => acc + it.price * it.qty, 0), [items]);
+    const subtotal = useMemo(
+        () => items.reduce((acc, it) => acc + Number(it.price || 0) * Number(it.qty || 0), 0),
+        [items]
+    );
+
     const shipping = items.length === 0 ? 0 : subtotal >= 25 ? 0 : 3.9;
     const total = subtotal + shipping;
 
-    const inc = (id) => setItems((prev) => prev.map((it) => (it.id === id ? { ...it, qty: it.qty + 1 } : it)));
-    const dec = (id) =>
-        setItems((prev) => prev.map((it) => (it.id === id ? { ...it, qty: it.qty - 1 } : it)).filter((it) => it.qty > 0));
+    const inc = (id) => {
+        const it = items.find((x) => x.id === id);
+        if (!it) return;
+        cart.updateItem(id, { qty: Number(it.qty || 0) + 1 });
+    };
 
-    const remove = (id) => setItems((prev) => prev.filter((it) => it.id !== id));
-    const clear = () => setItems([]);
+    const dec = (id) => {
+        const it = items.find((x) => x.id === id);
+        if (!it) return;
+        const next = Number(it.qty || 0) - 1;
+        if (next <= 0) cart.removeItem(id);
+        else cart.updateItem(id, { qty: next });
+    };
 
-    const format = (n) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
+    const remove = (id) => cart.removeItem(id);
+    const clear = () => cart.clear();
+
+    const format = (n) =>
+        new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 
     return (
         <div className="page page--pastel panier-page">
@@ -71,7 +72,14 @@ function Panier() {
                                     <div className="panier-item" key={it.id}>
                                         <div className="item-info">
                                             <h3>{it.name}</h3>
-                                            <p>{it.desc}</p>
+
+                                            {it.message ? (
+                                                <p>
+                                                    <strong>Message :</strong> {it.message}
+                                                </p>
+                                            ) : (
+                                                <p style={{ opacity: 0.8 }}>Aucun message</p>
+                                            )}
                                         </div>
 
                                         <div className="item-actions">
@@ -85,7 +93,7 @@ function Panier() {
                                                 </button>
                                             </div>
 
-                                            <div className="price">{format(it.price * it.qty)}</div>
+                                            <div className="price">{format(Number(it.price || 0) * Number(it.qty || 0))}</div>
 
                                             <button className="remove-btn" onClick={() => remove(it.id)} type="button">
                                                 Supprimer
