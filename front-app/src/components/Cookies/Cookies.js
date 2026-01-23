@@ -1,6 +1,6 @@
 import "./Cookies.css";
 import { useEffect, useState } from "react";
-import { CookiesAPI, BoxesAPI, OrdersAPI } from "../../api/api";
+import { CookiesAPI, OrdersAPI } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
@@ -10,10 +10,8 @@ export default function Cookies() {
     const navigate = useNavigate();
 
     const [cookies, setCookies] = useState([]);
-    const [boxes, setBoxes] = useState([]);
 
     const [selectedCookieId, setSelectedCookieId] = useState("");
-    const [selectedBoxId, setSelectedBoxId] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [message, setMessage] = useState("");
 
@@ -28,10 +26,7 @@ export default function Cookies() {
                 setError("");
                 setInfo("");
 
-                // 1) Cookies : l'API renvoie des objets du style:
-                // { id, pepite_id, cookie_name, quantity, created_at }
                 const cRaw = await CookiesAPI.list();
-
                 const normalizedCookies = (Array.isArray(cRaw) ? cRaw : []).map((x) => ({
                     id: String(x.id),
                     name: x.cookie_name ?? "",
@@ -48,22 +43,6 @@ export default function Cookies() {
                 } else {
                     setSelectedCookieId("");
                 }
-
-                // 2) Boxes : pas encore dispo -> on ignore si ça échoue
-                try {
-                    const bRaw = await BoxesAPI.list();
-                    const normalizedBoxes = Array.isArray(bRaw) ? bRaw : [];
-                    setBoxes(normalizedBoxes);
-
-                    if (normalizedBoxes.length) {
-                        setSelectedBoxId(String(normalizedBoxes[0].id));
-                    } else {
-                        setSelectedBoxId("");
-                    }
-                } catch (e) {
-                    setBoxes([]);
-                    setSelectedBoxId("");
-                }
             } catch (e) {
                 setError(e.message);
             } finally {
@@ -73,14 +52,12 @@ export default function Cookies() {
     }, []);
 
     const selectedCookie = cookies.find((c) => String(c.id) === String(selectedCookieId));
-    const selectedBox = boxes.find((b) => String(b.id) === String(selectedBoxId));
 
     async function handleCreateOrder() {
         try {
             setError("");
             setInfo("");
 
-            // Tant que boxes n'existe pas, on n'oblige pas le choix de boîte
             if (!selectedCookieId) {
                 setError("Choisis un cookie.");
                 return;
@@ -88,7 +65,6 @@ export default function Cookies() {
 
             await OrdersAPI.create({
                 cookieId: selectedCookieId,
-                boxId: selectedBoxId || null,
                 quantity: Number(quantity),
                 message,
             });
@@ -111,7 +87,7 @@ export default function Cookies() {
                 <div className="cookies-head">
                     <h1 className="cookies-title">Nos cookies 🍪</h1>
                     <p className="cookies-subtitle">
-                        Choisis ton cookie, la boîte, la quantité… et ajoute un petit message si tu veux ✨
+                        Choisis ton cookie, la quantité… et ajoute un petit message si tu veux ✨
                     </p>
                 </div>
 
@@ -161,31 +137,12 @@ export default function Cookies() {
                             <div className="card-glass panel">
                                 <div className="panel-title">
                                     <h2>Personnalisation</h2>
-                                    <span className="panel-hint">Boîte • Quantité • Message</span>
                                 </div>
 
                                 <div className="summary">
                                     <div>
-                                        <strong>Cookie :</strong> {selectedCookie ? selectedCookie.name : "—"}
+                                        <strong>Cookie :</strong> {selectedCookie ? selectedCookie.name : ""}
                                     </div>
-                                    <div>
-                                        <strong>Boîte :</strong> {selectedBox ? selectedBox.colorName : "—"}
-                                    </div>
-                                </div>
-
-                                <h3 className="section-title">Choisir une boîte</h3>
-                                <div className="boxes">
-                                    {boxes.map((b) => (
-                                        <button
-                                            key={b.id}
-                                            className={`box ${b.id === selectedBoxId ? "active" : ""}`}
-                                            onClick={() => setSelectedBoxId(b.id)}
-                                            type="button"
-                                        >
-                                            <span className="swatch" style={{ backgroundColor: b.colorHex || "#ddd" }} />
-                                            <span className="box-name">{b.colorName}</span>
-                                        </button>
-                                    ))}
                                 </div>
 
                                 <div className="form">
