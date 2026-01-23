@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import Notification from "./Notification";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
@@ -9,6 +9,7 @@ import Cookies from "./components/Cookies/Cookies";
 import Concept from "./components/Concept/Concept";
 import Panier from "./components/Panier/Panier";
 import AdminCookies from "./components/Admin/AdminCookies";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -25,17 +26,19 @@ function App() {
 
   return (
       <BrowserRouter>
-        <Notification message={message} />
+        <CartProvider>
+          <Notification message={message} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/cookies" element={<Cookies />} />
-          <Route path="/concept" element={<Concept />} />
-          <Route path="/panier" element={<Panier />} />
-          <Route path="/admin/cookies" element={<AdminCookies />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/concept" element={<Concept />} />
+            <Route path="/panier" element={<Panier />} />
+            <Route path="/admin/cookies" element={<AdminCookies />} />
+          </Routes>
+        </CartProvider>
       </BrowserRouter>
   );
 }
