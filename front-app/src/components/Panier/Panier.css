@@ -1,3 +1,4 @@
+/* Panier.css */
 .panier-main {
     position: relative;
     z-index: 2;
@@ -67,6 +68,65 @@
     color: rgba(60, 43, 28, 0.78);
     font-weight: 650;
     line-height: 1.45;
+}
+
+/* Couleur (affichage panier) */
+.color-row {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.70);
+    border: 1px solid rgba(140, 110, 80, 0.12);
+}
+
+.color-swatch {
+    width: 18px;
+    height: 18px;
+    aspect-ratio: 1 / 1;
+    border-radius: 999px;
+    display: block;
+    flex-shrink: 0;
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.10);
+}
+
+.color-text {
+    color: rgba(60, 43, 28, 0.82);
+    font-weight: 750;
+}
+
+/* mêmes gradients que Cookies */
+.swatch--classic {
+    background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
+}
+.swatch--choco {
+    background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+}
+.swatch--pink {
+    background: radial-gradient(circle at 30% 30%, #ffb7d0, #ff7fb0);
+}
+.swatch--matcha {
+    background: radial-gradient(circle at 30% 30%, #bfe4a8, #4f9f63);
+}
+.swatch--blue {
+    background: radial-gradient(circle at 30% 30%, #b9d6ff, #4c7bd9);
+}
+.swatch--caramel {
+    background: radial-gradient(circle at 30% 30%, #ffd8a8, #c97a2f);
+}
+
+.swatch--custom {
+    background:
+            linear-gradient(45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.06) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.06) 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
 }
 
 .item-actions {
@@ -169,7 +229,6 @@
 }
 
 /* Responsive */
-
 @media (max-width: 900px) {
     .panier-main {
         padding: 22px 14px 36px;
@@ -187,6 +246,10 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .panier-grid {
+        grid-template-columns: 1fr;
     }
 
     .item-actions {
@@ -239,4 +302,3 @@
         max-width: 100%;
     }
 }
-

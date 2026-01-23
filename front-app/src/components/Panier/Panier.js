@@ -1,3 +1,4 @@
+// Panier.js
 import "./Panier.css";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +41,39 @@ function Panier() {
     const format = (n) =>
         new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 
+    const colorLabel = (c, custom) => {
+        const id = String(c || "classic");
+        switch (id) {
+            case "choco":
+                return "Choco";
+            case "pink":
+                return "Fraise";
+            case "matcha":
+                return "Matcha";
+            case "blue":
+                return "Myrtille";
+            case "caramel":
+                return "Caramel";
+            case "custom":
+                return custom ? `Personnalisée (${custom})` : "Personnalisée";
+            case "classic":
+            default:
+                return "Classique";
+        }
+    };
+
+    const canUseColor = (value) => {
+        try {
+            if (!value) return false;
+            if (typeof window === "undefined") return false;
+            if (typeof window.CSS === "undefined") return false;
+            if (typeof window.CSS.supports !== "function") return false;
+            return window.CSS.supports("color", value);
+        } catch {
+            return false;
+        }
+    };
+
     return (
         <div className="page page--pastel panier-page">
             <Floaties items={["🧺", "🍪", "🍪", "🍫", "🥛", "🍪"]} />
@@ -66,44 +100,64 @@ function Panier() {
                         </div>
                     ) : (
                         <div className="panier-grid">
-                            {/* Items */}
                             <div className="panier-items">
-                                {items.map((it) => (
-                                    <div className="panier-item" key={it.id}>
-                                        <div className="item-info">
-                                            <h3>{it.name}</h3>
+                                {items.map((it) => {
+                                    const cId = String(it.color || "classic");
+                                    const cCustom = String(it.customColor || "").trim();
+                                    const customOk = cId === "custom" && canUseColor(cCustom);
 
-                                            {it.message ? (
-                                                <p>
-                                                    <strong>Message :</strong> {it.message}
-                                                </p>
-                                            ) : (
-                                                <p style={{ opacity: 0.8 }}>Aucun message</p>
-                                            )}
-                                        </div>
+                                    return (
+                                        <div className="panier-item" key={it.id}>
+                                            <div className="item-info">
+                                                <h3>{it.name}</h3>
 
-                                        <div className="item-actions">
-                                            <div className="qty">
-                                                <button className="qty-btn" onClick={() => dec(it.id)} type="button">
-                                                    −
-                                                </button>
-                                                <span className="qty-val">{it.qty}</span>
-                                                <button className="qty-btn" onClick={() => inc(it.id)} type="button">
-                                                    +
-                                                </button>
+                                                <div className="color-row">
+                                                    {cId !== "custom" ? (
+                                                        <span className={`color-swatch swatch--${cId}`} />
+                                                    ) : (
+                                                        <span
+                                                            className="color-swatch swatch--custom"
+                                                            style={customOk ? { background: cCustom } : undefined}
+                                                            title={customOk ? cCustom : "Couleur personnalisée"}
+                                                        />
+                                                    )}
+
+                                                    <span className="color-text">
+                                                        <strong>Couleur :</strong> {colorLabel(it.color, it.customColor)}
+                                                    </span>
+                                                </div>
+
+                                                {it.message ? (
+                                                    <p>
+                                                        <strong>Message :</strong> {it.message}
+                                                    </p>
+                                                ) : (
+                                                    <p style={{ opacity: 0.8 }}>Aucun message</p>
+                                                )}
                                             </div>
 
-                                            <div className="price">{format(Number(it.price || 0) * Number(it.qty || 0))}</div>
+                                            <div className="item-actions">
+                                                <div className="qty">
+                                                    <button className="qty-btn" onClick={() => dec(it.id)} type="button">
+                                                        −
+                                                    </button>
+                                                    <span className="qty-val">{it.qty}</span>
+                                                    <button className="qty-btn" onClick={() => inc(it.id)} type="button">
+                                                        +
+                                                    </button>
+                                                </div>
 
-                                            <button className="remove-btn" onClick={() => remove(it.id)} type="button">
-                                                Supprimer
-                                            </button>
+                                                <div className="price">{format(Number(it.price || 0) * Number(it.qty || 0))}</div>
+
+                                                <button className="remove-btn" onClick={() => remove(it.id)} type="button">
+                                                    Supprimer
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
-                            {/* Summary */}
                             <div className="summary">
                                 <div className="row">
                                     <span>Sous-total</span>

@@ -1,3 +1,4 @@
+/* Cookies.css */
 /* ===== Base ===== */
 .cookies-main {
     position: relative;
@@ -93,6 +94,7 @@
     flex-direction: column;
     gap: 10px;
     min-height: 260px;
+    margin-top: 14px;
 }
 
 .item {
@@ -121,7 +123,6 @@
             rgba(255, 231, 181, 0.60)
     );
     box-shadow: 0 20px 46px rgba(0, 0, 0, 0.14);
-    margin-top: 15px;
 }
 
 .item-main {
@@ -176,21 +177,6 @@
     margin-bottom: 14px;
 }
 
-.section-title {
-    margin: 6px 0 0;
-    font-size: 1rem;
-    font-weight: 1000;
-    color: #3c2b1c;
-}
-
-.swatch {
-    width: 48px;
-    height: 48px;
-    border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
-}
-
 /* ===== Form ===== */
 .form {
     display: grid;
@@ -215,6 +201,121 @@
     outline: none;
 }
 
+/* champ couleur */
+.field {
+    gap: 10px;
+}
+
+/* ===== Swatch ===== */
+.swatch {
+    width: 48px;
+    height: 48px;
+    aspect-ratio: 1 / 1;
+    border-radius: 999px;
+    display: block;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Color picker ===== */
+.color-picker {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ✅ 2 par ligne */
+    gap: 10px;
+    min-width: 0;
+}
+
+.color-picker > * {
+    min-width: 0;
+}
+
+.swatch-btn {
+    border: 1px solid rgba(140, 110, 80, 0.14);
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 18px;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    min-width: 0;
+}
+
+.swatch-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.10);
+}
+
+.swatch-btn.active {
+    border-color: rgba(160, 120, 90, 0.35);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+    background: linear-gradient(
+            180deg,
+            rgba(255, 209, 227, 0.55),
+            rgba(255, 231, 181, 0.55)
+    );
+}
+
+.swatch-label {
+    font-weight: 900;
+    color: rgba(60, 43, 28, 0.84);
+    line-height: 1.15;
+    min-width: 0;
+    flex: 1;
+
+    /* ✅ texte complet */
+    white-space: normal;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+}
+
+/* ===== Swatch colors ===== */
+.swatch--classic {
+    background: radial-gradient(circle at 30% 30%, #e7b97a, #c4894a);
+}
+.swatch--choco {
+    background: radial-gradient(circle at 30% 30%, #8b4a2b, #4b2412);
+}
+.swatch--pink {
+    background: radial-gradient(circle at 30% 30%, #ffb7d0, #ff7fb0);
+}
+.swatch--matcha {
+    background: radial-gradient(circle at 30% 30%, #bfe4a8, #4f9f63);
+}
+.swatch--blue {
+    background: radial-gradient(circle at 30% 30%, #b9d6ff, #4c7bd9);
+}
+.swatch--caramel {
+    background: radial-gradient(circle at 30% 30%, #ffd8a8, #c97a2f);
+}
+
+.swatch--custom {
+    background:
+            linear-gradient(45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.06) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.06) 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+}
+
+/* custom input */
+.custom-color {
+    margin-top: 2px;
+    display: grid;
+    gap: 6px;
+}
+
+.custom-hint {
+    font-weight: 750;
+    color: rgba(60, 43, 28, 0.62);
+}
+
+/* CTA */
 .cta-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -302,7 +403,7 @@
     line-height: 1.45;
 }
 
-/* ===== Responsive ===== */
+/* Responsive */
 @media (max-width: 900px) {
     .cookies-grid {
         grid-template-columns: 1fr;
@@ -328,11 +429,16 @@
         font-size: 0.9rem;
         opacity: 0.75;
     }
+
+    .color-picker {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
-/* ===== Mobile fine-tuning (alignement optique) ===== */
 @media (max-width: 900px) {
-    /* Centre vraiment le panel de droite */
     .cookies-grid .panel {
         margin-left: auto;
         margin-right: auto;
