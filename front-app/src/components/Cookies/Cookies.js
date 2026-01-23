@@ -1,3 +1,4 @@
+// Cookies.js
 import "./Cookies.css";
 import { useEffect, useMemo, useState } from "react";
 import { CookiesAPI } from "../../api/api";
@@ -20,6 +21,10 @@ export default function Cookies() {
     const [quantity, setQuantity] = useState(1);
     const [message, setMessage] = useState("");
 
+    // couleur
+    const [color, setColor] = useState("classic"); // classic | choco | pink | matcha | blue | caramel | custom
+    const [customColor, setCustomColor] = useState(""); // couleur libre
+
     const [error, setError] = useState("");
     const [info, setInfo] = useState("");
     const [loading, setLoading] = useState(true);
@@ -35,7 +40,7 @@ export default function Cookies() {
                 const normalizedCookies = (Array.isArray(cRaw) ? cRaw : []).map((x) => ({
                     id: String(x.id),
                     name: x.cookie_name ?? "",
-                    description: `Pépite #${x.pepite_id ?? "—"} • Stock: ${x.quantity ?? "—"}`,
+                    description: `Stock: ${x.quantity ?? "—"}`,
                     price: x.price ?? 0,
                     _raw: x,
                 }));
@@ -60,11 +65,23 @@ export default function Cookies() {
         [cookies, selectedCookieId]
     );
 
-    // Quand on change de cookie, on reset la personnalisation (plus clean)
+    // Quand on change de cookie, on reset la personnalisation
     useEffect(() => {
         setQuantity(1);
         setMessage("");
+        setColor("classic");
+        setCustomColor("");
     }, [selectedCookieId]);
+
+    const COLOR_OPTIONS = [
+        { id: "classic", label: "Classique" },
+        { id: "choco", label: "Choco" },
+        { id: "pink", label: "Fraise" },
+        { id: "matcha", label: "Matcha" },
+        { id: "blue", label: "Myrtille" },
+        { id: "caramel", label: "Caramel" },
+        { id: "custom", label: "Personnalisée" },
+    ];
 
     function handleAddToCart() {
         try {
@@ -76,6 +93,8 @@ export default function Cookies() {
             }
 
             const qty = Math.max(1, Math.floor(Number(quantity) || 1));
+            const pickedColor = String(color || "classic");
+            const pickedCustom = String(customColor || "").trim();
 
             cart.addItem({
                 cookieId: selectedCookie.id,
@@ -83,15 +102,18 @@ export default function Cookies() {
                 price: selectedCookie.price,
                 qty,
                 message: String(message || ""),
+                color: pickedColor,
+                customColor: pickedColor === "custom" ? pickedCustom : "",
             });
 
-            // petit feedback + reset
             setInfo("Ajouté au panier ! 🧺");
             window.clearTimeout(handleAddToCart._t);
             handleAddToCart._t = window.setTimeout(() => setInfo(""), 2500);
 
             setQuantity(1);
             setMessage("");
+            setColor("classic");
+            setCustomColor("");
         } catch (e) {
             setError(e.message);
         }
@@ -183,6 +205,50 @@ export default function Cookies() {
                                         </div>
 
                                         <div className="form">
+                                            {/* Label comme les autres */}
+                                            <label className="field">
+                                                Couleur du cookie
+
+                                                <div className="color-picker" role="radiogroup" aria-label="Choisir une couleur">
+                                                    {COLOR_OPTIONS.map((c) => (
+                                                        <button
+                                                            key={c.id}
+                                                            type="button"
+                                                            className={`swatch-btn ${color === c.id ? "active" : ""}`}
+                                                            onClick={() => setColor(c.id)}
+                                                            aria-pressed={color === c.id}
+                                                            title={c.label}
+                                                        >
+                                                            {c.id !== "custom" ? (
+                                                                <span className={`swatch swatch--${c.id}`} aria-hidden="true" />
+                                                            ) : (
+                                                                <span
+                                                                    className="swatch swatch--custom"
+                                                                    aria-hidden="true"
+                                                                    style={customColor ? { background: customColor } : undefined}
+                                                                />
+                                                            )}
+
+                                                            <span className="swatch-label">{c.label}</span>
+                                                        </button>
+                                                    ))}
+                                                </div>
+
+                                                {color === "custom" && (
+                                                    <div className="custom-color">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Ex : #ff00aa ou hotpink"
+                                                            value={customColor}
+                                                            onChange={(e) => setCustomColor(e.target.value)}
+                                                        />
+                                                        <div className="custom-hint">
+                                                            Astuce : tu peux taper un nom CSS, un hex (#RRGGBB) ou rgb(...)
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </label>
+
                                             <label>
                                                 Quantité
                                                 <input

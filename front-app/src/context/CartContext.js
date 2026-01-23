@@ -1,3 +1,4 @@
+// CartContext.js
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getCart, setCart } from "../utils/cart";
 
@@ -10,6 +11,14 @@ function makeId() {
 
 function normMessage(v) {
     // On normalise pour éviter les doublons bêtes ("coucou " vs "coucou")
+    return String(v ?? "").trim();
+}
+
+function normColor(v) {
+    return String(v ?? "classic").trim() || "classic";
+}
+
+function normCustomColor(v) {
     return String(v ?? "").trim();
 }
 
@@ -40,15 +49,28 @@ export function CartProvider({ children }) {
                 const qtyToAdd = Math.max(1, Math.floor(Number(payload.qty ?? 1) || 1));
                 const message = normMessage(payload.message);
 
-                // ✅ Fusion: même cookieId + même message => on incrémente qty
+                // ✅ Couleur
+                const color = normColor(payload.color);
+                const customColor = color === "custom" ? normCustomColor(payload.customColor) : "";
+
+                // ✅ Fusion: même cookieId + même message + même couleur (+ customColor si custom)
                 setItems((prev) => {
-                    const idx = prev.findIndex(
-                        (it) => String(it.cookieId) === cookieId && normMessage(it.message) === message
-                    );
+                    const idx = prev.findIndex((it) => {
+                        const itColor = normColor(it.color);
+                        const itCustom = itColor === "custom" ? normCustomColor(it.customColor) : "";
+
+                        return (
+                            String(it.cookieId) === cookieId &&
+                            normMessage(it.message) === message &&
+                            itColor === color &&
+                            itCustom === customColor
+                        );
+                    });
 
                     if (idx !== -1) {
                         const copy = prev.slice();
                         const current = copy[idx];
+
                         copy[idx] = {
                             ...current,
                             // on garde le prix existant (ou on peut le remplacer, mais ici on garde)
@@ -56,6 +78,10 @@ export function CartProvider({ children }) {
                             name: current.name || name,
                             price: Number.isFinite(current.price) ? current.price : price,
                             message: normMessage(current.message),
+
+                            // ✅ on conserve couleur/custom
+                            color,
+                            customColor,
                         };
                         return copy;
                     }
@@ -67,6 +93,10 @@ export function CartProvider({ children }) {
                         price,
                         qty: qtyToAdd,
                         message,
+
+                        // ✅ stocke couleur/custom
+                        color,
+                        customColor,
                     };
 
                     return [...prev, item];
@@ -83,6 +113,13 @@ export function CartProvider({ children }) {
                                 qty: patch.qty !== undefined ? Number(patch.qty) : it.qty,
                                 price: patch.price !== undefined ? Number(patch.price) : it.price,
                                 message: patch.message !== undefined ? String(patch.message) : it.message,
+
+                                // ✅ normalisation si on update couleur
+                                color: patch.color !== undefined ? normColor(patch.color) : it.color,
+                                customColor:
+                                    patch.customColor !== undefined
+                                        ? normCustomColor(patch.customColor)
+                                        : it.customColor,
                             }
                             : it
                     )
