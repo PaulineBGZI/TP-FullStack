@@ -3,14 +3,13 @@ FROM node:22-alpine
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm install && \
+	npm install --save-dev @types/cors && \
+	npm install cors
 
 COPY . .
 
-RUN npm run build
-# Pour api-gateway et commands-service
-RUN apk add --no-cache curl
-# Pour commands-service seulement
-RUN apk add --no-cache postgresql-client
+RUN npm run build && \
+	apk add --no-cache curl postgresql-client
 
 CMD ["node", "dist/server.js"]
