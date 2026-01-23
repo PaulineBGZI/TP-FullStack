@@ -1,0 +1,254 @@
+:root {
+    --text: #3c2b1c;
+    --text-soft: rgba(60, 43, 28, 0.78);
+    --border: rgba(140, 110, 80, 0.12);
+
+    --glass: rgba(255, 255, 255, 0.72);
+    --glass-strong: rgba(255, 255, 255, 0.78);
+
+    --shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
+    --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.10);
+
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 14px;
+}
+
+/* ===== Page base ===== */
+.page {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Pastel background ===== */
+.page--pastel {
+    background:
+            radial-gradient(900px 500px at 15% 10%, rgba(255, 224, 236, 0.75), transparent 60%),
+            radial-gradient(900px 500px at 85% 20%, rgba(210, 234, 255, 0.75), transparent 60%),
+            radial-gradient(900px 600px at 40% 90%, rgba(255, 243, 210, 0.8), transparent 60%),
+            linear-gradient(180deg, #fffdf8 0%, #fbf7ff 40%, #fffaf3 100%);
+}
+
+/* ===== Floaties emojis ===== */
+.floaties {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floaty {
+    position: absolute;
+    font-size: 34px;
+    opacity: 0.28;
+    animation: floaty 14s ease-in-out infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    25% { transform: translateY(-18px) translateX(10px) rotate(6deg); }
+    50% { transform: translateY(-28px) translateX(16px) rotate(-5deg); }
+    75% { transform: translateY(-14px) translateX(8px) rotate(4deg); }
+}
+
+/* positions génériques (réutilisables) */
+.f1 { top: 14%; left: 7%;  animation-duration: 11s; }
+.f2 { top: 68%; left: 10%; animation-duration: 14s; animation-delay: -2s; font-size: 30px; }
+.f3 { top: 20%; right: 12%; animation-duration: 12s; animation-delay: -5s; font-size: 32px; }
+.f4 { bottom: 14%; right: 8%; animation-duration: 15s; animation-delay: -7s; font-size: 38px; }
+.f5 { top: 48%; left: 50%; animation-duration: 16s; animation-delay: -9s; font-size: 28px; opacity: 0.20; }
+.f6 { bottom: 8%; left: 62%; animation-duration: 12s; animation-delay: -3s; }
+
+/* ===== Header ===== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 14px 18px;
+}
+
+.header-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, 0.70);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.10);
+}
+
+/* Brand */
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 14px;
+}
+
+.brand-dot {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 213, 230, 0.85), rgba(255, 244, 210, 0.85));
+    border: 1px solid var(--border);
+}
+
+.brand-text {
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    color: var(--text);
+}
+
+/* Nav */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-link {
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: rgba(60, 43, 28, 0.78);
+    font-weight: 800;
+    padding: 10px 12px;
+    border-radius: 12px;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn--lg {
+    padding: 12px 16px;
+    border-radius: 16px;
+}
+
+.btn--primary {
+    color: var(--text);
+    background: linear-gradient(180deg, #ffd1e3, #ffe7b5);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(140, 110, 80, 0.14);
+}
+
+.btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 22px 52px rgba(0, 0, 0, 0.15);
+}
+
+.btn--ghost {
+    background: rgba(255, 255, 255, 0.78);
+    color: rgba(60, 43, 28, 0.86);
+    border: 1px solid rgba(140, 110, 80, 0.16);
+}
+
+.btn--ghost:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+}
+
+/* ===== Card glass ===== */
+.card-glass {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+/* ===== Alerts (global) ===== */
+.alert {
+    max-width: 1100px;
+    margin: 14px auto 0;
+    padding: 12px 14px;
+    border-radius: 16px;
+    font-weight: 850;
+    text-align: center;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+}
+
+.alert-error {
+    background: rgba(255, 210, 210, 0.85);
+    color: #6b1f1f;
+}
+
+.alert-info {
+    background: rgba(210, 255, 220, 0.85);
+    color: #1f5b2d;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+    position: relative;
+    z-index: 2;
+    padding: 10px 18px 22px;
+    margin-top: auto;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    color: rgba(60, 43, 28, 0.65);
+    font-weight: 700;
+}
+
+.footer-sep { opacity: 0.6; }
+
+/* ===== Responsive global ===== */
+@media (max-width: 900px) {
+    .nav { display: none; }
+    .brand-text { display: none; }
+}
