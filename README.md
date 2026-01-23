@@ -41,8 +41,19 @@ cd TP-FullStack
 Avant de lancer les conteneurs Docker, il est nécessaire d’installer les dépendances Node.js pour chaque service
 
 Exécutez la commande suivante dans chacun des dossiers concernés (API Gateway, services backend et frontend)
+
+```bash
+cd /api-gateway
+```
+
 ```bash
 npm install
+```
+Et répétez pour les autres dossiers
+Il est possible que le CORS empêche la communication entre les conteneurs, il est alors nécessaire d'effectuer la commande suivant :
+
+```bash
+npm install cors
 ```
 
 ### Lancement du projet

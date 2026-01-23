@@ -94,28 +94,38 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Insertion de données pour la table pepites
-INSERT INTO pepites (pepite_name, quantity, created_at)
-VALUES
-('Pépites de Chocolat Noir', 1000, NOW()),
-('Pépites de Chocolat Blanc', 1000, NOW()),
-('Pépites de Caramel', 1000, NOW()),
-('Pépites de Noisette', 1000, NOW()),
-('Pépites de Fruits Rouges', 1000, NOW());
+-- Insertion de données pour la table pepites uniquement si elle est vide
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pepites) THEN
+        INSERT INTO pepites (pepite_name, quantity, created_at)
+        VALUES
+        ('Pépites de Chocolat Noir', 1000, NOW()),
+        ('Pépites de Chocolat Blanc', 1000, NOW()),
+        ('Pépites de Caramel', 1000, NOW()),
+        ('Pépites de Noisette', 1000, NOW()),
+        ('Pépites de Fruits Rouges', 1000, NOW());
+    END IF;
+END $$;
 
--- Insertion de données pour la table cookies
-INSERT INTO cookies (pepite_id, cookie_name, quantity, price, created_at)
-VALUES
-(1, 'Cookie Chocolat Noir', 50, 2.50, NOW()),
-(2, 'Cookie Chocolat Blanc', 50, 2.50, NOW()),
-(3, 'Cookie Caramel', 50, 2.75, NOW()),
-(4, 'Cookie Noisette', 50, 2.75, NOW()),
-(5, 'Cookie Fruits Rouges', 50, 2.90, NOW()),
-(1, 'Cookie Double Chocolat', 50, 3.00, NOW()),
-(2, 'Cookie Chocolat Blanc et Noisette', 50, 3.25, NOW()),
-(3, 'Cookie Caramel et Fruits Rouges', 50, 3.25, NOW()),
-(4, 'Cookie Noisette et Caramel', 50, 3.50, NOW()),
-(5, 'Cookie Mix Fruits Rouges et Chocolat Noir', 50, 3.50, NOW());
+-- Insertion de données pour la table cookies uniquement si elle est vide
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM cookies) THEN
+        INSERT INTO cookies (pepite_id, cookie_name, quantity, price, created_at)
+        VALUES
+        (1, 'Cookie Chocolat Noir', 50, 2.50, NOW()),
+        (2, 'Cookie Chocolat Blanc', 50, 2.50, NOW()),
+        (3, 'Cookie Caramel', 50, 2.75, NOW()),
+        (4, 'Cookie Noisette', 50, 2.75, NOW()),
+        (5, 'Cookie Fruits Rouges', 50, 2.90, NOW()),
+        (1, 'Cookie Double Chocolat', 50, 3.00, NOW()),
+        (2, 'Cookie Chocolat Blanc et Noisette', 50, 3.25, NOW()),
+        (3, 'Cookie Caramel et Fruits Rouges', 50, 3.25, NOW()),
+        (4, 'Cookie Noisette et Caramel', 50, 3.50, NOW()),
+        (5, 'Cookie Mix Fruits Rouges et Chocolat Noir', 50, 3.50, NOW());
+    END IF;
+END $$;
 
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
