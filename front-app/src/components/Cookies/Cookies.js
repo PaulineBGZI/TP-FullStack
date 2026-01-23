@@ -1,4 +1,4 @@
-((import "./Cookies.css";
+import "./Cookies.css";
 import { useEffect, useState } from "react";
 import { CookiesAPI, BoxesAPI, OrdersAPI } from "../../api/api";
 import { useNavigate } from "react-router-dom";

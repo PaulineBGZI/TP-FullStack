@@ -141,6 +141,110 @@
 .concept-footer p { margin: 0; }
 
 @media (max-width: 900px) {
-    .concept-grid { grid-template-columns: 1fr; }
-    .concept-footer { flex-direction: column; align-items: flex-start; }
+    /* Centre la carte principale */
+    .concept-main {
+        padding: 22px 14px 36px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .concept-card {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    /* Hero */
+    .concept-hero {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .concept-badge {
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.35;
+    }
+
+    .concept-title {
+        font-size: clamp(1.9rem, 7vw, 2.4rem);
+        line-height: 1.1;
+    }
+
+    .concept-subtitle {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Boutons en colonne */
+    .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    /* ✅ IMPORTANT : Grid -> 1 colonne (sinon ça écrase tout) */
+    .concept-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .concept-block {
+        padding: 16px;
+        border-radius: 20px;
+    }
+
+    .concept-list {
+        padding-left: 18px;
+    }
+
+    /* Nuggets & badges : pas de débordement */
+    .nuggets {
+        flex-wrap: wrap;
+    }
+
+    .badges {
+        gap: 8px;
+    }
+
+    /* CTA internes -> colonne */
+    .concept-cta {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .concept-cta .btn {
+        width: 100%;
+    }
+
+    /* Footer de la carte -> colonne */
+    .concept-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .concept-footer .btn {
+        width: 100%;
+    }
 }
+
+@media (max-width: 420px) {
+    .concept-card {
+        max-width: 360px;
+    }
+
+    .concept-hero {
+        padding: 14px;
+    }
+
+    .concept-block {
+        padding: 14px;
+    }
+}
+

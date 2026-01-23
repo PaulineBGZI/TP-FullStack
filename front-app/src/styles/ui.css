@@ -252,3 +252,160 @@
     .nav { display: none; }
     .brand-text { display: none; }
 }
+
+/* ===== Mobile header menu ===== */
+.header-burger {
+    display: none;
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-weight: 1000;
+}
+
+.header-admin-badge {
+    font-weight: 850;
+    color: rgba(60, 43, 28, 0.78);
+}
+
+@media (max-width: 900px) {
+    .nav { display: none; }
+    .brand-text { display: none; }
+
+    .header-burger { display: inline-flex; align-items: center; justify-content: center; }
+    .header-auth-btn { display: none; } /* on met auth dans le drawer pour éviter de surcharger */
+    .header-admin-badge { display: none; }
+}
+
+/* Overlay + Drawer */
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+}
+
+.mobile-menu-backdrop {
+    position: absolute;
+    inset: 0;
+    border: none;
+    background: rgba(20, 10, 5, 0.35);
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+}
+
+/* ✅ Drawer plus petit, centré, et scroll si besoin */
+.mobile-menu {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(92vw, 380px);
+    max-height: calc(100vh - 28px);
+    overflow: auto;
+
+    padding: 14px;
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+/* Header du menu */
+.mobile-menu-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(140, 110, 80, 0.18);
+}
+
+.mobile-menu-title {
+    font-weight: 1000;
+    color: #3c2b1c;
+    font-size: 1.05rem;
+}
+
+/* ✅ Boutons plus compacts */
+.mobile-menu-links {
+    display: grid;
+    gap: 10px;
+    padding: 12px 0;
+}
+
+.mobile-link {
+    width: 100%;
+    text-align: left;
+
+    padding: 12px 14px; /* au lieu d’un gros bouton */
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(140, 110, 80, 0.14);
+}
+
+/* Actions (login/logout) */
+.mobile-menu-actions {
+    padding-top: 10px;
+    border-top: 1px dashed rgba(140, 110, 80, 0.18);
+}
+
+/* ✅ Bouton close plus petit (si tu trouves qu’il prend trop de place) */
+.mobile-menu-head .btn {
+    padding: 8px 10px;
+    border-radius: 14px;
+}
+
+/* =========================
+   Mobile header menu (plus compact)
+   ========================= */
+
+@media (max-width: 900px) {
+    .mobile-menu {
+        /* plus petit + moins “zoomé” */
+        width: min(92vw, 340px);
+        max-height: calc(100vh - 24px);
+        padding: 12px;
+        border-radius: 20px;
+        overflow: auto;
+    }
+
+    .mobile-menu-title {
+        font-size: 0.95rem;
+    }
+
+    .mobile-menu-head {
+        padding-bottom: 8px;
+    }
+
+    .mobile-menu-links {
+        gap: 8px;
+        padding: 10px 0;
+    }
+
+    .mobile-link {
+        padding: 10px 12px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+    }
+
+    .mobile-menu-actions {
+        padding-top: 8px;
+    }
+
+    .mobile-menu-head .btn {
+        padding: 7px 9px;
+        border-radius: 12px;
+    }
+}
+
+/* encore + compact sur très petits écrans */
+@media (max-width: 380px) {
+    .mobile-menu {
+        width: min(94vw, 320px);
+        padding: 10px;
+        border-radius: 18px;
+    }
+
+    .mobile-link {
+        padding: 9px 10px;
+        font-size: 0.92rem;
+    }
+}
