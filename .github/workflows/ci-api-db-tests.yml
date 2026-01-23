@@ -131,6 +131,8 @@ jobs:
         working-directory: ./api-gateway
         run: |
           npm install
+          npm install cors
+          npm install --save-dev @types/cors
           npm run build
 
       - name: Archive deployed build
