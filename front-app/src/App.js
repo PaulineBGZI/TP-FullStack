@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     const internalApi = process.env.REACT_APP_API_URL;
-    const browserApi = "http://localhost:5000";
+    const browserApi = "http://localhost:5003";
 
     console.log("Front → API Gateway (Docker internal):", internalApi);
     console.log("Front → API Gateway (local browser):", browserApi);

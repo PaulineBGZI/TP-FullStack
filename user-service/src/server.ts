@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 app.use(cors({
-  origin: ["http://localhost:5000", "http://api-gateway:5000"],
+  origin: ["http://localhost:5003", "http://api-gateway:5003"],
   credentials: true,
 }));
 app.use(express.json());

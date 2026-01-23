@@ -153,10 +153,10 @@ export default function Cookies() {
                                             type="button"
                                         >
                                             <div className="item-main">
-                                                <div className="item-name">{c.name}</div>
-                                                <div className="item-desc">{c.description}</div>
+                                                <div className="item-name">{c.cookie_name}</div>
+                                                {/* <div className="item-desc">{c.description}</div> */}
                                             </div>
-                                            <div className="item-price">{Number(c.price).toFixed(2)} €</div>
+                                            {/* <div className="item-price">{Number(c.price).toFixed(2)} €</div> */}
                                         </button>
                                     ))}
                                 </div>
