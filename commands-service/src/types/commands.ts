@@ -19,18 +19,19 @@ export interface Cookie {
   pepite_id: string;
   cookie_name: string;
   quantity: number;
+  price: number;
   description: string;
   created_at: Date;
 }
 
-export interface pepites {
+export interface Pepites {
   id: string;
   pepite_name: string;
   quantity: number;
   created_at: Date;
 }
 
-export interface livraisons {
+export interface Livraisons {
   id: string;
   command_id: string;
   address: string;

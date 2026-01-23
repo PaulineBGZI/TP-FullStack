@@ -26,6 +26,7 @@ async function request(path, options = {}) {
 
 export const CookiesAPI = {
     list: () => request("/commands/cookies"),
+    listOne: (id) => request(`/commands/cookies/${id}`),
     create: (payload) =>
         request("/commands/cookies", { method: "POST", body: JSON.stringify(payload) }),
     update: (id, payload) =>
@@ -33,6 +34,17 @@ export const CookiesAPI = {
     remove: (id) =>
         request(`/commands/cookies/${id}`, { method: "DELETE" }),
 };
+
+export const PepitesAPI = {
+    list: () => request("/commands/pepites"),
+    listOne: (id) => request(`/commands/pepites/${id}`),
+    create: (payload) =>
+        request("/commands/pepites", { method: "POST", body: JSON.stringify(payload) }),
+    update: (id, payload) =>
+        request(`/commands/pepites/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
+    remove: (id) =>
+        request(`/commands/pepites/${id}`, { method: "DELETE" }),
+}
 
 export const OrdersAPI = {
     create: (payload) =>

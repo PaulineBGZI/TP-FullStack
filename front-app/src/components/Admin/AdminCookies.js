@@ -10,12 +10,14 @@ export default function AdminCookies() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [info, setInfo] = useState("");
-
+    
     // Form
     const [editingId, setEditingId] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [cookieName, setCookieName] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [pepiteId, setPepiteId] = useState("");
+    const [price, setPrice] = useState("");
 
     async function load() {
         try {
@@ -41,6 +43,7 @@ export default function AdminCookies() {
         setCookieName("");
         setQuantity(0);
         setPepiteId("");
+        setPrice("");
     }
 
     function startEdit(c) {
@@ -48,6 +51,7 @@ export default function AdminCookies() {
         setCookieName(c.cookie_name ?? "");
         setQuantity(Number(c.quantity ?? 0));
         setPepiteId(c.pepite_id == null ? "" : String(c.pepite_id));
+        setPrice(c.price == null ? "" : String(c.price));
     }
 
     async function handleSubmit(e) {
@@ -64,6 +68,7 @@ export default function AdminCookies() {
             cookie_name: cookieName.trim(),
             quantity: Number(quantity),
             pepite_id: pepiteId ? String(pepiteId) : null,
+            price: price ? Number(price) : 0, 
         };
 
         try {
@@ -75,10 +80,12 @@ export default function AdminCookies() {
                 setInfo("Cookie ajouté ✅");
             }
 
-            resetForm();
+                resetForm();
             await load();
-        } catch (e2) {
-            setError(e2.message);
+        } catch (e) {
+            setError(e.message);
+        } finally {
+            setSubmitting(false);
         }
     }
 
@@ -160,7 +167,7 @@ export default function AdminCookies() {
                                     </label>
 
                                     <label>
-                                        Pépite ID (optionnel)
+                                        Pépite ID
                                         <input
                                             value={pepiteId}
                                             onChange={(e) => setPepiteId(e.target.value)}
@@ -168,10 +175,18 @@ export default function AdminCookies() {
                                         />
                                     </label>
 
+                                    <label>
+                                        Prix 
+                                        <input
+                                            value={price}
+                                            onChange={(e) => setPrice(e.target.value)}
+                                            placeholder="Ex : 1"
+                                        />
+                                    </label>
+
                                     <div className="admin-form-actions">
-                                        <button className="btn btn--primary btn--lg" type="submit">
-                                            {editingId ? "Enregistrer" : "Ajouter"}
-                                        </button>
+                                        <button className="btn btn--primary btn--lg" type="submit" disabled={submitting}>
+                                            {submitting ? (editingId ? "Modification..." : "Ajout...") : (editingId ? "Enregistrer" : "Ajouter")}                                        </button>
                                         <button className="btn btn--ghost btn--lg" type="button" onClick={resetForm}>
                                             Réinitialiser
                                         </button>
@@ -207,7 +222,9 @@ export default function AdminCookies() {
                                                     <div className="admin-item-title">{c.cookie_name}</div>
                                                     <div className="admin-item-sub">
                                                         Stock: <strong>{c.quantity}</strong> • Pépite:{" "}
-                                                        <strong>{c.pepite_id ?? "—"}</strong> • ID: <strong>{c.id}</strong>
+                                                        <strong>{c.pepite_id ?? "—"}</strong> 
+                                                        • ID: <strong>{c.id}</strong>
+                                                        • Prix: <strong>{c.price ?? "0"}€</strong>
                                                     </div>
                                                 </div>
 
