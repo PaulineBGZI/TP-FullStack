@@ -46,10 +46,6 @@ export const PepitesAPI = {
         request(`/commands/pepites/${id}`, { method: "DELETE" }),
 }
 
-export const BoxesAPI = {
-    list: () => request("/commands/boxes"),
-};
-
 export const OrdersAPI = {
     create: (payload) =>
         request("/commands/orders", { method: "POST", body: JSON.stringify(payload) }),
