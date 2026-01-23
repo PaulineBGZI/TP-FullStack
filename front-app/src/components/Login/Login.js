@@ -1,50 +1,42 @@
 import "./Login.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setAuth } from "../../auth/auth";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import Floaties from "../../components/Floaties";
 
 function Login() {
     const navigate = useNavigate();
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        setError("");
+
+        const login = email.trim();
+        const pwd = password;
+
+        if (!login || !pwd) {
+            setError("Renseigne un identifiant et un mot de passe.");
+            return;
+        }
+
+        const isAdmin = login === "admin" && pwd === "admin";
+
+        setAuth({ username: login, isAdmin });
+        navigate(isAdmin ? "/admin/cookies" : "/cookies");
+    }
+
     return (
         <div className="page page--pastel login-page">
-            {/* Décor emojis flottants */}
-            <div className="floaties" aria-hidden="true">
-                <span className="floaty f1">🍪</span>
-                <span className="floaty f2">🍪</span>
-                <span className="floaty f3">🥛</span>
-                <span className="floaty f4">🍫</span>
-                <span className="floaty f5">🍪</span>
-                <span className="floaty f6">🧁</span>
-            </div>
+            <Floaties items={["🍪", "🍪", "🥛", "🍫", "🍪", "🧁"]} />
 
-            {/* Header (identique aux autres pages) */}
-            <header className="site-header">
-                <div className="header-inner">
-                    <button className="brand" onClick={() => navigate("/")}>
-                        <span className="brand-dot" aria-hidden="true">🍪</span>
-                        <span className="brand-text">Le Paradis des Cookies</span>
-                    </button>
+            <SiteHeader />
 
-                    <nav className="nav">
-                        <button className="nav-link" onClick={() => navigate("/concept")}>
-                            Concept
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/cookies")}>
-                            Nos cookies
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/panier")}>
-                            Panier
-                        </button>
-                    </nav>
-
-                    <div className="header-actions">
-                        <button className="btn btn--primary" onClick={() => navigate("/login")}>
-                            Se connecter
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Content */}
             <main className="login-main">
                 <div className="login-card card-glass">
                     <div className="login-head">
@@ -53,15 +45,35 @@ function Login() {
                         <p className="login-subtitle">Content de te revoir au Paradis ✨</p>
                     </div>
 
-                    <form className="login-form">
+                    {error && (
+                        <div className="fetch-error" style={{ marginBottom: 12 }}>
+                            <span className="fetch-icon">⚠️</span>
+                            <div className="fetch-text">
+                                <strong>Connexion impossible</strong>
+                                <span>{error}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    <form className="login-form" onSubmit={handleSubmit}>
                         <label>
-                            Adresse email
-                            <input type="email" placeholder="ex: cookie@paradis.fr" />
+                            Adresse email (ou admin)
+                            <input
+                                type="text"
+                                placeholder="ex: cookie@paradis.fr ou admin"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </label>
 
                         <label>
                             Mot de passe
-                            <input type="password" placeholder="••••••••" />
+                            <input
+                                type="password"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </label>
 
                         <button type="submit" className="btn btn--primary btn--lg full">
@@ -78,13 +90,7 @@ function Login() {
                 </div>
             </main>
 
-            <footer className="site-footer">
-                <div className="footer-inner">
-                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
-                    <span className="footer-sep">•</span>
-                    <span>Fait avec amour et un peu de chocolat 🍫</span>
-                </div>
-            </footer>
+            <SiteFooter right="Fait avec amour et un peu de chocolat 🍫" />
         </div>
     );
 }

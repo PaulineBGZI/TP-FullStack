@@ -8,6 +8,7 @@ import Register from "./components/Register/Register";
 import Cookies from "./components/Cookies/Cookies";
 import Concept from "./components/Concept/Concept";
 import Panier from "./components/Panier/Panier";
+import AdminCookies from "./components/Admin/AdminCookies";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -33,6 +34,7 @@ function App() {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/concept" element={<Concept />} />
           <Route path="/panier" element={<Panier />} />
+          <Route path="/admin/cookies" element={<AdminCookies />} />
         </Routes>
       </BrowserRouter>
   );

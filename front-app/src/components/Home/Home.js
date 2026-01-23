@@ -1,55 +1,24 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import Floaties from "../../components/Floaties";
 
 function Home() {
     const navigate = useNavigate();
 
     return (
         <div className="page page--pastel">
-            {/* Décor emojis cookies flottants */}
-            <div className="floaties" aria-hidden="true">
-                <span className="floaty f1">🍪</span>
-                <span className="floaty f2">🍪</span>
-                <span className="floaty f3">🧁</span>
-                <span className="floaty f4">🍪</span>
-                <span className="floaty f5">🍫</span>
-                <span className="floaty f6">🍪</span>
-                <span className="floaty f7">🥛</span>
-                <span className="floaty f8">🍪</span>
-            </div>
+            <Floaties
+                items={["🍪", "🍪", "🧁", "🍪", "🍫", "🍪"]}
+                extra={[
+                    { className: "f7", emoji: "🥛" },
+                    { className: "f8", emoji: "🍪" },
+                ]}
+            />
 
-            {/* Header */}
-            <header className="site-header">
-                <div className="header-inner">
-                    <button className="brand" onClick={() => navigate("/")}>
-                        <span className="brand-dot" aria-hidden="true">🍪</span>
-                        <span className="brand-text">Le Paradis des Cookies</span>
-                    </button>
+            <SiteHeader />
 
-                    <nav className="nav">
-                        <button className="nav-link" onClick={() => navigate("/concept")}>
-                            Concept
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/cookies")}>
-                            Nos cookies
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/panier")}>
-                            Panier
-                        </button>
-                    </nav>
-
-                    <div className="header-actions">
-                        <button
-                            className="btn btn--primary"
-                            onClick={() => navigate("/login")}
-                        >
-                            Se connecter
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Contenu */}
             <main className="home">
                 <section className="hero">
                     <div className="hero-card">
@@ -68,17 +37,11 @@ function Home() {
                         </p>
 
                         <div className="hero-cta">
-                            <button
-                                className="btn btn--primary btn--lg"
-                                onClick={() => navigate("/cookies")}
-                            >
+                            <button className="btn btn--primary btn--lg" onClick={() => navigate("/cookies")}>
                                 Découvrir nos cookies
                             </button>
 
-                            <button
-                                className="btn btn--ghost btn--lg"
-                                onClick={() => navigate("/concept")}
-                            >
+                            <button className="btn btn--ghost btn--lg" onClick={() => navigate("/concept")}>
                                 En savoir plus
                             </button>
                         </div>
@@ -124,13 +87,7 @@ function Home() {
                 </section>
             </main>
 
-            <footer className="site-footer">
-                <div className="footer-inner">
-                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
-                    <span className="footer-sep">•</span>
-                    <span>Fait avec amour et un peu de chocolat 🍫</span>
-                </div>
-            </footer>
+            <SiteFooter right="Fait avec amour et un peu de chocolat 🍫" />
         </div>
     );
 }

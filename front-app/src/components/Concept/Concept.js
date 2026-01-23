@@ -1,52 +1,18 @@
 import "./Concept.css";
 import { useNavigate } from "react-router-dom";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import Floaties from "../../components/Floaties";
 
 function Concept() {
     const navigate = useNavigate();
 
     return (
         <div className="page page--pastel concept-page">
-            {/* Floaties */}
-            <div className="floaties" aria-hidden="true">
-                <span className="floaty f1">🍪</span>
-                <span className="floaty f2">🍪</span>
-                <span className="floaty f3">🧁</span>
-                <span className="floaty f4">🍫</span>
-                <span className="floaty f5">🥛</span>
-                <span className="floaty f6">🍪</span>
-            </div>
+            <Floaties items={["🍪", "🍪", "🧁", "🍫", "🥛", "🍪"]} />
 
-            {/* Header */}
-            <header className="site-header">
-                <div className="header-inner">
-                    <button className="brand" onClick={() => navigate("/")}>
-            <span className="brand-dot" aria-hidden="true">
-              🍪
-            </span>
-                        <span className="brand-text">Le Paradis des Cookies</span>
-                    </button>
+            <SiteHeader />
 
-                    <nav className="nav">
-                        <button className="nav-link" onClick={() => navigate("/concept")}>
-                            Concept
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/cookies")}>
-                            Nos cookies
-                        </button>
-                        <button className="nav-link" onClick={() => navigate("/panier")}>
-                            Panier
-                        </button>
-                    </nav>
-
-                    <div className="header-actions">
-                        <button className="btn btn--primary" onClick={() => navigate("/login")}>
-                            Se connecter
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Content */}
             <main className="concept-main">
                 <div className="card-glass concept-card">
                     <header className="concept-hero">
@@ -142,13 +108,7 @@ function Concept() {
                 </div>
             </main>
 
-            <footer className="site-footer">
-                <div className="footer-inner">
-                    <span>© {new Date().getFullYear()} Le Paradis des Cookies</span>
-                    <span className="footer-sep">•</span>
-                    <span>Fait avec amour 🍫</span>
-                </div>
-            </footer>
+            <SiteFooter right="Fait avec amour 🍫" />
         </div>
     );
 }
