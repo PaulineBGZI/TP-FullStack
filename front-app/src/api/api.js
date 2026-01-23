@@ -25,16 +25,20 @@ async function request(path, options = {}) {
 }
 
 export const CookiesAPI = {
-    list: () => request("/cookies"),
-    create: (payload) => request("/cookies", { method: "POST", body: JSON.stringify(payload) }),
-    update: (id, payload) => request(`/cookies/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
-    remove: (id) => request(`/cookies/${id}`, { method: "DELETE" }),
+    list: () => request("/commands/cookies"),
+    create: (payload) =>
+        request("/commands/cookies", { method: "POST", body: JSON.stringify(payload) }),
+    update: (id, payload) =>
+        request(`/commands/cookies/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
+    remove: (id) =>
+        request(`/commands/cookies/${id}`, { method: "DELETE" }),
 };
 
 export const BoxesAPI = {
-    list: () => request("/boxes"),
+    list: () => request("/commands/boxes"),
 };
 
 export const OrdersAPI = {
-    create: (payload) => request("/orders", { method: "POST", body: JSON.stringify(payload) }),
+    create: (payload) =>
+        request("/commands/orders", { method: "POST", body: JSON.stringify(payload) }),
 };

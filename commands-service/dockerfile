@@ -8,5 +8,10 @@ RUN npm install
 COPY . .
 
 RUN npm run build
+# Pour api-gateway et commands-service
+RUN apk add --no-cache curl
+# Pour commands-service seulement
+RUN apk add --no-cache postgresql-client
+
 
 CMD ["node", "dist/server.js"]
