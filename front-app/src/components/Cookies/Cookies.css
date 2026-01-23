@@ -1,7 +1,3 @@
-/* ============================================================
-   COOKIES PAGE – CLEAN & NO OVERLAP
-   ============================================================ */
-
 /* ===== Base ===== */
 .cookies-main {
     position: relative;
@@ -261,7 +257,6 @@
     color: rgba(60, 43, 28, 0.62);
 }
 
-/* ===== FIX ULTIME ANTI-CHEVAUCHEMENT ===== */
 .cookies-clean,
 .cookies-clean *,
 .cookies-clean *::before,
@@ -290,7 +285,7 @@
     transform: none !important;
 }
 
-/* ===== Fetch error (soft & friendly) ===== */
+/* ===== Fetch error ===== */
 .fetch-error {
     max-width: 1100px;
     margin: 16px auto 22px;
@@ -349,5 +344,64 @@
 
     .cta-row {
         grid-template-columns: 1fr;
+    }
+
+    .panel-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .panel-title h2 {
+        white-space: normal;
+    }
+
+    .panel-hint {
+        max-width: none;
+        white-space: normal;
+        font-size: 0.9rem;
+        opacity: 0.75;
+    }
+}
+
+/* ===== Mobile fine-tuning (alignement optique) ===== */
+@media (max-width: 900px) {
+    /* Centre vraiment le panel de droite */
+    .cookies-grid .panel {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .form input {
+        width: 100%;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .form label {
+        align-items: center;
+    }
+
+    .form label > * {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .cta-row {
+        justify-items: center;
+    }
+
+    .cta-row .btn {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .fineprint {
+        text-align: center;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
