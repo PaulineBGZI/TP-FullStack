@@ -34,7 +34,7 @@ export default function Cookies() {
                     name: x.cookie_name ?? "",
                     description: `Pépite #${x.pepite_id ?? "—"} • Stock: ${x.quantity ?? "—"}`,
                     // Pas de prix dans la réponse actuelle : on met 0 pour éviter NaN
-                    price: 0,
+                    price: x.price ?? 0,
                     _raw: x,
                 }));
 
