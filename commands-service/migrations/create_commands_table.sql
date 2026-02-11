@@ -24,12 +24,18 @@ CREATE TABLE IF NOT EXISTS panier (
 CREATE TABLE IF NOT EXISTS panier_items (
     id BIGSERIAL PRIMARY KEY,
     panier_id BIGINT NOT NULL,
+    cookie_id BIGINT NOT NULL, 
     quantity INT NOT NULL CHECK (quantity > 0),
     price_each NUMERIC(10,2) NOT NULL CHECK (price_each >= 0),
 
     CONSTRAINT fk_panier
         FOREIGN KEY (panier_id)
         REFERENCES panier(id)
+        ON DELETE CASCADE
+
+    CONSTRAINT fk_panier_cookie
+        FOREIGN KEY (cookie_id)
+        REFERENCES cookies(id)
         ON DELETE CASCADE
 );
 
