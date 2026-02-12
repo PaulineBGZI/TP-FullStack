@@ -50,7 +50,7 @@ cd /api-gateway
 npm install
 ```
 Et répétez pour les autres dossiers
-Il est possible que le CORS empêche la communication entre les conteneurs, il est alors nécessaire d'effectuer la commande suivant :
+Il est possible que le CORS empêche la communication entre les conteneurs, il est alors nécessaire d'effectuer la commande suivante :
 
 ```bash
 npm install cors
@@ -67,6 +67,22 @@ Cette commande permet de :
 - Démarrer l’API Gateway, les services backend et le frontend React
 - Initialiser les bases de données PostgreSQL
 
+### Lancement des tests
+Les tests sont disponibles dès lors que le projet est cloné en local, il est possible de les lancer avant et pendant le lancement des service.
+
+Les tests sont uniquement disponibles pour les commands service, il faut donc se diriger vers celui-ci pour le tester :
+
+```bash
+cd .\commands-service\
+```
+
+Pour lancer les tests :
+
+```bash
+npm test
+```
+
+Le résultat des tests est affiché dans la console.
 ### Accès à l'application
 Lorsque tous les conteneurs sont opérationnels, l’application est accessible depuis votre navigateur à l’adresse suivante
 ```bash

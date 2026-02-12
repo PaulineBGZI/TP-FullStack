@@ -5,6 +5,7 @@ module.exports = {
   clearMocks: true,
 
   extensionsToTreatAsEsm: [".ts"],
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
 
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1"
