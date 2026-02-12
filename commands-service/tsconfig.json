@@ -2,12 +2,13 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "nodenext",
     "target": "esnext",
+    "module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
     "sourceMap": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": true
   }
 }

@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import pool from './db.js';
 
 const waitForDb = async (retries = 30, delayMs = 1000) => {
@@ -16,8 +15,6 @@ const waitForDb = async (retries = 30, delayMs = 1000) => {
   throw new Error('Database did not become available in time');
 };
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 (async function run() {
   try {
