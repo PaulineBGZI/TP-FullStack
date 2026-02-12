@@ -83,6 +83,9 @@ npm test
 ```
 
 Le résultat des tests est affiché dans la console.
+
+Les tests sont également exécutés automatiquement lors du build du docker, je recommande d'ajouter ```--progress=plain``` afin de mieux apercevoir les résultats des tests.
+
 ### Accès à l'application
 Lorsque tous les conteneurs sont opérationnels, l’application est accessible depuis votre navigateur à l’adresse suivante
 ```bash
