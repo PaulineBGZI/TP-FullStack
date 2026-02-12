@@ -1,9 +1,4 @@
-/* ============================================================
-   ADMIN COOKIES – STYLE ALIGNÉ SUR UI.CSS + COOKIES.CSS
-   ============================================================ */
-
 .admin-cookies-page {
-    /* on réutilise le layout global page + pastel */
     position: relative;
 }
 
@@ -124,7 +119,6 @@
     margin-top: 14px;
 }
 
-/* item style = similaire à .item */
 .admin-item {
     border: 1px solid rgba(140, 110, 80, 0.14);
     background: rgba(255, 255, 255, 0.72);

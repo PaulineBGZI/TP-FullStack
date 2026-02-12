@@ -81,7 +81,6 @@
   box-shadow: 0 0 0 3px rgba(255, 209, 227, 0.35);
 }
 
-/* Two columns for Prénom/Nom */
 .register-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

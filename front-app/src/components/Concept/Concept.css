@@ -125,7 +125,6 @@
     gap: 10px;
 }
 
-/* Footer inside card */
 .concept-footer {
     margin-top: 16px;
     padding-top: 14px;
@@ -187,7 +186,7 @@
         width: 100%;
     }
 
-    /* ✅ IMPORTANT : Grid -> 1 colonne (sinon ça écrase tout) */
+    /* Grid -> 1 colonne (sinon ça écrase tout) */
     .concept-grid {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -211,7 +210,6 @@
         gap: 8px;
     }
 
-    /* CTA internes -> colonne */
     .concept-cta {
         display: grid;
         grid-template-columns: 1fr;
@@ -222,7 +220,6 @@
         width: 100%;
     }
 
-    /* Footer de la carte -> colonne */
     .concept-footer {
         flex-direction: column;
         align-items: flex-start;

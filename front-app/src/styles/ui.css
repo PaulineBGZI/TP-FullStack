@@ -291,7 +291,6 @@
     cursor: pointer;
 }
 
-/* ✅ Drawer plus petit, centré, et scroll si besoin */
 .mobile-menu {
     position: absolute;
     top: 14px;
@@ -341,13 +340,11 @@
     border: 1px solid rgba(140, 110, 80, 0.14);
 }
 
-/* Actions (login/logout) */
 .mobile-menu-actions {
     padding-top: 10px;
     border-top: 1px dashed rgba(140, 110, 80, 0.18);
 }
 
-/* ✅ Bouton close plus petit (si tu trouves qu’il prend trop de place) */
 .mobile-menu-head .btn {
     padding: 8px 10px;
     border-radius: 14px;
